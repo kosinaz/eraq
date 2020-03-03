@@ -1,2 +1,1 @@
-# eraq
-Emmanuel de Rouge and the Amulet of Quetzalcoatl
+# Emmanuel de Rouge and the Amulet of Quetzalcoatl
