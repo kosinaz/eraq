@@ -112,7 +112,7 @@ export default class WorldScene extends Scene {
     for (let i = 0; i < this.world.hero.bullets; i += 1) {
       this.game.display.draw(10 + i, 26, '⁍', this.game.tiled ? color : null);
     }
-    if (this.mouseX === 78 && this.mouseY === 26) {
+    if (this.mouseX === 50 && this.mouseY === 26) {
       if (this.game.tiled) {
         color = 'rgba(255, 255, 255, 0.25)';
       } else {
@@ -120,7 +120,7 @@ export default class WorldScene extends Scene {
       }
     }
     this.game.display.draw(
-        78,
+        50,
         26,
         this.music.muted ? '🕨' : '🕪',
         this.game.tiled ? color : null, bg,
@@ -145,7 +145,7 @@ export default class WorldScene extends Scene {
       this.update();
       return;
     } else if (event.type === 'mousedown') {
-      if (this.eventX === 78 && this.eventY === 26) {
+      if (this.eventX === 50 && this.eventY === 26) {
         this.music.muted = !this.music.muted;
         this.update();
         return;

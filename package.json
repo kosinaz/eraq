@@ -1,5 +1,5 @@
 {
-  "name": "rotbase",
+  "name": "eraq",
   "version": "0.1.0",
   "description": "game",
   "main": "game.js",
@@ -11,12 +11,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kosinaz/rotbase.git"
+    "url": "git+https://github.com/kosinaz/eraq.git"
   },
   "author": "Zoltan Kosina",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/kosinaz/rotbase/issues"
+    "url": "https://github.com/kosinaz/eraq/issues"
   },
-  "homepage": "https://github.com/kosinaz/rotbase#readme"
+  "homepage": "https://github.com/kosinaz/eraq#readme"
 }
