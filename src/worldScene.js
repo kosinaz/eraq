@@ -41,6 +41,7 @@ export default class WorldScene extends Scene {
       const p = position.split(',');
       if (+p[2] === this.world.hero.z) {
         const char = this.world.map.get(position);
+        const itemChar = this.world.items.get(position) || ' ';
         let actorChar = ' ';
         let color = this.game.tiled ? 'rgba(10, 10, 10, 0.75)' : '#888';
         let bg = '#000';
@@ -73,12 +74,12 @@ export default class WorldScene extends Scene {
           this.game.display.draw(
               +p[0],
               +p[1],
-              [char, actorChar],
-              [color, color],
-              [bg, 'transparent'],
+              [char, itemChar, actorChar],
+              [color, color, color],
+              [bg, 'transparent', 'transparent'],
           );
         } else {
-          this.game.display.draw(+p[0], +p[1], [char, actorChar]);
+          this.game.display.draw(+p[0], +p[1], [char, itemChar, actorChar]);
         }
       }
     });

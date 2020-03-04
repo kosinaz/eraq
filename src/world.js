@@ -33,6 +33,7 @@ export default class World {
     this.engine = new Engine(this.scheduler);
     this.log = [''];
     this.map = new Map();
+    this.items = new Map();
     this.ups = [[]];
     this.downs = [[39, 12]];
     this.actors = [];
@@ -84,11 +85,11 @@ export default class World {
           const x = RNG.getUniformInt(rooms[i].getLeft(), rooms[i].getRight());
           const y = RNG.getUniformInt(rooms[i].getTop(), rooms[i].getBottom());
           if (!RNG.getUniformInt(0, 10)) {
-            this.map.set(`${x},${y},${z}`, '+');
-          } else if (!RNG.getUniformInt(0, 10)) {
-            this.map.set(`${x},${y},${z}`, '⊠');
-          } else if (!RNG.getUniformInt(0, 10)) {
-            this.map.set(`${x},${y},${z}`, '⌐');
+            this.items.set(`${x},${y},${z}`, '+');
+          } else if (!RNG.getUniformInt(0, 20)) {
+            this.items.set(`${x},${y},${z}`, '⊠');
+          } else if (!RNG.getUniformInt(0, 30)) {
+            this.items.set(`${x},${y},${z}`, '⌐');
           }
         }
       }

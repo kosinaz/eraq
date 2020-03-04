@@ -84,23 +84,23 @@ export default class Hero extends Actor {
     } else {
       this.x = this.path[1][0];
       this.y = this.path[1][1];
-      const char = this.world.map.get(this.position);
+      const char = this.world.items.get(this.position);
       if (['+', '⊠', '⌐'].includes(char)) {
         if (char === '+' && this.health < 5) {
-          this.world.map.set(this.position, '‧');
+          this.world.items.delete(this.position);
           this.health += 1;
           this.world.log.unshift(` you used a medkit `);
         } else if (char === '⊠' && this.bullets < 12) {
-          this.world.map.set(this.position, '‧');
+          this.world.items.delete(this.position);
           const bullets = RNG.getUniformInt(2, 6);
-          this.bullets = Math.min(12, this.bullets + bullets);
+          this.bullets += bullets;
           this.world.log.unshift(` you picked up ${bullets} bullets `);
         } else if (char === '⌐' && (!this.hasPistol || this.bullets < 12)) {
-          this.world.map.set(this.position, '‧');
+          this.world.items.delete(this.position);
           const bullets = RNG.getUniformInt(2, 6);
           this.hasPistol = true;
           this.damage = 3;
-          this.bullets = Math.min(12, this.bullets + bullets);
+          this.bullets += bullets;
           this.world.log.unshift(
               ` you picked up a pistol with ${bullets} bullets `,
           );
