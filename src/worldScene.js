@@ -15,7 +15,7 @@ export default class WorldScene extends Scene {
    * @memberof WorldScene
    */
   start() {
-    super.start();
+    super.start(this.game.tileOptions);
     this.selected = 0;
     this.music = new Audio('./music/.ogg');
     this.music.loop = true;
@@ -24,14 +24,6 @@ export default class WorldScene extends Scene {
     this.world.create();
     this.mouseX = -1;
     this.mouseY = -1;
-    this.game.tiled = true;
-    this.game.display.setOptions(
-      this.game.tiled ? this.game.tileOptions : this.game.rectOptions,
-    );
-    document.body.removeChild(this.game.canvas);
-    this.game.canvas = this.game.display.getContainer();
-    document.body.appendChild(this.game.canvas);
-    this.update();
   }
 
   /**

@@ -18,10 +18,21 @@ export default class Scene {
   /**
    * Opens the scene and starts listening to the events over it.
    *
+   * @param {*} style
    * @memberof Scene
    */
-  start() {
+  start(style) {
     this.game.display.clear();
+    if (style.layout === 'tile-gl') {
+      this.game.tiled = true;
+      this.game.display.setOptions(this.game.tileOptions);
+    } else {
+      this.game.tiled = false;
+      this.game.display.setOptions(style);
+    }
+    document.body.removeChild(this.game.canvas);
+    this.game.canvas = this.game.display.getContainer();
+    document.body.appendChild(this.game.canvas);
     window.addEventListener('keydown', this);
     window.addEventListener('mousedown', this);
     window.addEventListener('mouseup', this);

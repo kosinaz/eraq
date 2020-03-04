@@ -14,9 +14,14 @@ export default class FailScene extends Scene {
    * @memberof FailScene
    */
   start() {
-    super.start();
-    this.game.display.drawText(35, 1, 'GAME OVER');
-    this.game.display.drawText(1, 23, '➧Back to main');
+    super.start({
+      width: 91,
+      height: 30,
+      fontSize: 24,
+      fontFamily: 'monospace',
+    });
+    this.game.display.drawText(21, 1, 'GAME OVER!');
+    this.game.display.drawText(1, 28, '➧Back to main menu');
   }
 
   /**
@@ -32,7 +37,7 @@ export default class FailScene extends Scene {
         this.switchTo(this.game.menuScene);
       }
     } else if (event.type === 'mousedown') {
-      if (this.eventX > 1 && this.eventX < 14 && this.eventY === 23) {
+      if (this.eventX > 1 && this.eventX < 19 && this.eventY === 28) {
         this.switchTo(this.game.menuScene);
       }
     }

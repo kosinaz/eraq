@@ -14,7 +14,12 @@ export default class MenuScene extends Scene {
    * @memberof MenuScene
    */
   start() {
-    super.start();
+    super.start({
+      width: 32,
+      height: 18,
+      fontSize: 40,
+      fontFamily: 'title',
+    });
     this.selected = 0;
     this.game.display.drawText(5, 1, '   Emmanuel de Rouge  ');
     this.game.display.drawText(5, 3, '        and the       ');

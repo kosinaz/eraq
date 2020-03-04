@@ -14,8 +14,13 @@ export default class HelpScene extends Scene {
    * @memberof HelpScene
    */
   start() {
-    super.start();
-    this.game.display.drawText(38, 1, 'Help');
+    super.start({
+      width: 91,
+      height: 30,
+      fontSize: 24,
+      fontFamily: 'monospace',
+    });
+    this.game.display.drawText(43, 1, 'Help');
     this.game.display.drawText(
         2, 4, 'Move or attack with mouse or arrow or num or wasd keys',
     );
@@ -23,9 +28,12 @@ export default class HelpScene extends Scene {
         2, 6, 'Move upstairs or downstairs with mouse or enter key',
     );
     this.game.display.drawText(
-        2, 8, 'Mute or unmute the music with mouse or m key',
+        2, 8, 'Set console or tile-based display with mouse or t key',
     );
-    this.game.display.drawText(1, 23, '➧Back');
+    this.game.display.drawText(
+        2, 10, 'Mute or unmute the music with mouse or m key',
+    );
+    this.game.display.drawText(1, 28, '➧Back');
   }
 
   /**
@@ -41,7 +49,7 @@ export default class HelpScene extends Scene {
         this.switchTo(this.game.menuScene);
       }
     } else if (event.type === 'mousedown') {
-      if (this.eventX > 1 && this.eventX < 6 && this.eventY === 23) {
+      if (this.eventX > 1 && this.eventX < 6 && this.eventY === 28) {
         this.switchTo(this.game.menuScene);
       }
     }
