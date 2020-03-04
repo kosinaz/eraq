@@ -24,7 +24,7 @@ export default class CreditsScene extends Scene {
     // eslint-disable-next-line max-len
     this.game.display.drawText(2, 4, 'Code: by Zoltan Kosina (github.com/kosinaz) Licensed under the Unlicense');
     // eslint-disable-next-line max-len
-    this.game.display.drawText(2, 6, 'Tool: rot.js by Ondrej Zara (ondras.zarovi.cz) Licensed under BSD 3 Clause "New" or "Revised"');
+    this.game.display.drawText(2, 6, 'Tool: rot.js by Ondrej Zara (ondras.zarovi.cz) Licensed under BSD3 Clause New or Revised');
     // eslint-disable-next-line max-len
     this.game.display.drawText(2, 8, 'Art: by ComboSmooth (combosmooth.itch.io) Licensed under the Unlicense');
     // eslint-disable-next-line max-len
