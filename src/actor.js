@@ -200,7 +200,9 @@ export default class Actor {
     if (
       this.world.hero.isAt(`${this.path[1][0]},${this.path[1][1]},${this.z}`)
     ) {
-      this.world.hero.weaken(this.damage + RNG.getUniformInt(0, 1));
+      let damage = this.damage + RNG.getUniformInt(0, 1);
+      damage = ~~(damage / (this.hasFeather ? 2 : 1));
+      this.world.hero.weaken(damage);
       return;
     } else {
       this.x = this.path[1][0];

@@ -1,6 +1,7 @@
 import Speed from '../lib/rot/scheduler/speed.js';
 import {Engine, RNG} from '../lib/rot/index.js';
 import Hero from './hero.js';
+import Boss from './boss.js';
 import Snake from './snake.js';
 import Bat from './bat.js';
 import Arena from '../lib/rot/map/arena.js';
@@ -37,7 +38,7 @@ export default class World {
     this.ups = [[]];
     this.downs = [[39, 12]];
     this.actors = [];
-    const arena = new Arena(52, 25);
+    let arena = new Arena(52, 25);
     arena.create((x, y, value) => {
       if (value) {
         this.map.set(`${x},${y},0`, '~');
@@ -52,7 +53,7 @@ export default class World {
       }
     });
     const digger = new Digger(52, 25);
-    for (let z = 1; z < 10; z += 1) {
+    for (let z = 1; z < 8; z += 1) {
       digger.create((x, y, value) => {
         if (value) {
           this.map.set(`${x},${y},${z}`, '#');
@@ -93,12 +94,25 @@ export default class World {
           }
         }
       }
+      arena = new Arena(13, 11);
+      arena.create((x, y, value) => {
+        if (value) {
+          this.map.set(`${x + 20},${y + 6},8`, '#');
+        } else {
+          this.map.set(`${x + 20},${y + 6},8`, '‧');
+        }
+      });
       this.ups[z] = rooms[0].getCenter();
       this.downs[z] = rooms[rooms.length - 1].getCenter();
       this.map.set(`${this.ups[z][0]},${this.ups[z][1]},${z}`, '<');
       this.map.set(`${this.downs[z][0]},${this.downs[z][1]},${z}`, '>');
     }
-    this.hero = new Hero(this, `13,12,0`);
+    this.map.set(`26,8,8`, '<');
+    this.ups.push([26, 8]);
+    const foe = new Boss(this, `26,14,8`);
+    this.actors.push(foe);
+    this.hero = new Hero(this, `26,7,8`);
+    // this.hero = new Hero(this, `13,12,0`);
     this.map.set(`13,12,0`, '˯');
     this.map.set(`${this.downs[0][0]},${this.downs[0][1]},0`, '>');
     // this.items.set(`14,12,0`, '+');

@@ -14,9 +14,15 @@ export default class WinScene extends Scene {
    * @memberof WinScene
    */
   start() {
-    super.start();
-    this.game.display.drawText(30, 1, 'CONGRATULATIONS! YOU WON!');
-    this.game.display.drawText(1, 23, '➧Back to main');
+    super.start({
+      layout: 'rect',
+      width: 91,
+      height: 30,
+      fontSize: 24,
+      fontFamily: 'monospace',
+    });
+    this.game.display.drawText(33, 1, 'CONGRATULATIONS! YOU WON!');
+    this.game.display.drawText(1, 28, '➧Back to main menu');
   }
 
   /**
@@ -32,7 +38,7 @@ export default class WinScene extends Scene {
         this.switchTo(this.game.menuScene);
       }
     } else if (event.type === 'mousedown') {
-      if (this.eventX > 1 && this.eventX < 14 && this.eventY === 23) {
+      if (this.eventX > 1 && this.eventX < 19 && this.eventY === 28) {
         this.switchTo(this.game.menuScene);
       }
     }

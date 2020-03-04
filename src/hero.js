@@ -27,6 +27,7 @@ export default class Hero extends Actor {
     this.damage = 1;
     this.speed = 3;
     this.hasPistol = false;
+    this.hasFeather = false;
     this.bullets = 0;
     this.explored = new Set();
     this.fov = new Set();
@@ -79,14 +80,21 @@ export default class Hero extends Actor {
     );
     if (actor) {
       this.world.log.unshift('');
-      actor.weaken(this.damage + RNG.getUniformInt(0, 1));
+      let damage = this.damage + RNG.getUniformInt(0, 1);
+      damage *= this.hasFeather ? 2 : 1;
+      actor.weaken(damage);
       this.target = null;
     } else {
       this.x = this.path[1][0];
       this.y = this.path[1][1];
       const char = this.world.items.get(this.position);
-      if (['+', '⊠', '⌐'].includes(char)) {
-        if (char === '+' && this.health < 5) {
+      if (char) {
+        if (char === '⤁') {
+          this.world.items.delete(this.position);
+          this.hasFeather = true;
+          this.speed = 6;
+          this.world.log.unshift(` YOU HAVE THE GOLDEN FEATHER! `);
+        } else if (char === '+' && this.health < 5) {
           this.world.items.delete(this.position);
           this.health += 1;
           this.world.log.unshift(` you used a medkit `);
@@ -125,7 +133,9 @@ export default class Hero extends Actor {
    */
   fireAndUnlock(actor) {
     this.world.log.unshift(' you fired your pistol ');
-    actor.weaken(this.damage + RNG.getUniformInt(0, 3));
+    let damage = this.damage + RNG.getUniformInt(0, 3);
+    damage *= this.hasFeather ? 2 : 1;
+    actor.weaken(damage);
     this.bullets -= 1;
     this.target = null;
     this.ps.compute(this.x, this.y, 11, (x, y) => {

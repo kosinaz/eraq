@@ -77,6 +77,8 @@ export default class MenuScene extends Scene {
         }
       } else if (event.keyCode === 77) {
         this.switchTo(this.game.failScene);
+      } else if (event.keyCode === 78) {
+        this.switchTo(this.game.winScene);
       }
     } else if (event.type === 'mousedown') {
       if (this.eventX > 1) {

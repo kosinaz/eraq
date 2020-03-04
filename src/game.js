@@ -33,7 +33,8 @@ Game.tileOptions = {
   tileMap: {
     ' ': [144, 144],
     '@': [72, 0],
-    '§': [0, 72],
+    'Ŝ': [0, 96],
+    'ŝ': [0, 72],
     'ᨓ': [144, 72],
     '#': [0, 48],
     '~': [0, 24],
@@ -42,6 +43,7 @@ Game.tileOptions = {
     'ˬ': [168, 24],
     '˯': [192, 24],
     '‧': [120, 48],
+    '⤁': [24, 96],
     '+': [24, 72],
     '⌐': [216, 96],
     '⊠': [0, 120],
@@ -124,9 +126,9 @@ Game.tileOptions = {
   height: 30,
 };
 Game.display = new Display(Game.menuOptions);
-Game.display.drawText = function(x, y, text) {
+Game.display.drawText = function(x, y, text, color) {
   for (let i = 0; i < text.length; i += 1) {
-    this.draw(x + i, y, text[i], Game.tiled ? 'transparent' : null);
+    this.draw(x + i, y, text[i], Game.tiled ? color || 'transparent' : null);
   };
 };
 Game.canvas = Game.display.getContainer();

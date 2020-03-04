@@ -33,6 +33,10 @@ export default class WorldScene extends Scene {
    */
   update() {
     this.game.display.clear();
+    if (this.world.hero.hasFeather && this.world.hero.z === 0) {
+      this.switchTo(this.game.winScene);
+      return;
+    }
     if (this.world.hero.died) {
       this.switchTo(this.game.failScene);
       return;
@@ -93,10 +97,19 @@ export default class WorldScene extends Scene {
       }
     }
     this.game.display.draw(1, 26, '@', this.game.tiled ? color : null, bg);
-    this.game.display.drawText(
-        2, 26, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
-        '♡♡♡♡♡'.substr(this.world.hero.health),
-    );
+    if (this.world.hero.hasFeather) {
+      this.game.display.drawText(
+          2, 26, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
+          '♡♡♡♡♡'.substr(this.world.hero.health),
+          'rgba(255, 255, 0, 0.33)',
+      );
+      this.game.display.draw(7, 26, '⤁', this.game.tiled ? color : null);
+    } else {
+      this.game.display.drawText(
+          2, 26, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
+          '♡♡♡♡♡'.substr(this.world.hero.health),
+      );
+    }
     color = 'transparent';
     bg = null;
     if (this.world.hero.hasPistol) {
