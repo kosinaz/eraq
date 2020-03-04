@@ -15,6 +15,7 @@ export default class MenuScene extends Scene {
    */
   start() {
     super.start({
+      layout: 'rect',
       width: 32,
       height: 18,
       fontSize: 40,
@@ -74,6 +75,8 @@ export default class MenuScene extends Scene {
         } else if (this.selected === 2) {
           this.switchTo(this.game.creditsScene);
         }
+      } else if (event.keyCode === 77) {
+        this.switchTo(this.game.failScene);
       }
     } else if (event.type === 'mousedown') {
       if (this.eventX > 1) {

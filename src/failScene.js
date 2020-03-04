@@ -15,12 +15,13 @@ export default class FailScene extends Scene {
    */
   start() {
     super.start({
+      layout: 'rect',
       width: 91,
       height: 30,
       fontSize: 24,
       fontFamily: 'monospace',
     });
-    this.game.display.drawText(21, 1, 'GAME OVER!');
+    this.game.display.drawText(40, 1, 'GAME OVER!');
     this.game.display.drawText(1, 28, '➧Back to main menu');
   }
 
