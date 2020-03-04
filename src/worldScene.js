@@ -100,10 +100,15 @@ export default class WorldScene extends Scene {
     color = 'transparent';
     bg = null;
     if (this.world.hero.hasPistol) {
-      this.game.display.draw(9, 26, '⌐', this.game.tiled ? color : null);
+      this.game.display.draw(16, 26, '⌐', this.game.tiled ? color : null);
     }
-    for (let i = 0; i < this.world.hero.bullets; i += 1) {
-      this.game.display.draw(10 + i, 26, '⁍', this.game.tiled ? color : null);
+    if (this.world.hero.bullets > 0) {
+      for (let i = 0; i < ((this.world.hero.bullets % 6) || 6); i += 1) {
+        this.game.display.draw(15 - i, 26, '⁍', this.game.tiled ? color : null);
+      }
+      for (let i = 0; i < ~~((this.world.hero.bullets - 1) / 6); i += 1) {
+        this.game.display.draw(17 + i, 26, '⊠', this.game.tiled ? color : null);
+      }
     }
     if (this.mouseX === 50 && this.mouseY === 26) {
       if (this.game.tiled) {

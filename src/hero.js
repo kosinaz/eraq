@@ -90,12 +90,12 @@ export default class Hero extends Actor {
           this.world.items.delete(this.position);
           this.health += 1;
           this.world.log.unshift(` you used a medkit `);
-        } else if (char === '⊠' && this.bullets < 12) {
+        } else if (char === '⊠') {
           this.world.items.delete(this.position);
           const bullets = RNG.getUniformInt(2, 6);
           this.bullets += bullets;
           this.world.log.unshift(` you picked up ${bullets} bullets `);
-        } else if (char === '⌐' && (!this.hasPistol || this.bullets < 12)) {
+        } else if (char === '⌐') {
           this.world.items.delete(this.position);
           const bullets = RNG.getUniformInt(2, 6);
           this.hasPistol = true;

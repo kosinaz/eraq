@@ -101,6 +101,18 @@ export default class World {
     this.hero = new Hero(this, `13,12,0`);
     this.map.set(`13,12,0`, '˯');
     this.map.set(`${this.downs[0][0]},${this.downs[0][1]},0`, '>');
+    this.items.set(`14,12,0`, '+');
+    this.items.set(`15,12,0`, '⊠');
+    this.items.set(`16,12,0`, '⊠');
+    this.items.set(`17,12,0`, '⊠');
+    this.items.set(`18,12,0`, '⊠');
+    this.items.set(`19,12,0`, '⌐');
+    this.map.set(`14,12,0`, '˯');
+    this.map.set(`15,12,0`, '˯');
+    this.map.set(`16,12,0`, '˯');
+    this.map.set(`17,12,0`, '˯');
+    this.map.set(`18,12,0`, '˯');
+    this.map.set(`19,12,0`, '˯');
     this.engine.start();
   }
 
