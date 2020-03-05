@@ -28,6 +28,7 @@ export default class Hero extends Actor {
     this.speed = 3;
     this.hasPistol = false;
     this.hasFeather = false;
+    this.medkits = 0;
     this.bullets = 0;
     this.explored = new Set();
     this.fov = new Set();
@@ -94,10 +95,10 @@ export default class Hero extends Actor {
           this.hasFeather = true;
           this.speed = 6;
           this.world.log.unshift(` YOU HAVE THE GOLDEN FEATHER! `);
-        } else if (char === '+' && this.health < 5) {
+        } else if (char === '+' && this.medkits < 5) {
           this.world.items.delete(this.position);
-          this.health += 1;
-          this.world.log.unshift(` you used a medkit `);
+          this.medkits += 1;
+          this.world.log.unshift(` you picked up a medkit `);
         } else if (char === '⊠') {
           this.world.items.delete(this.position);
           const bullets = RNG.getUniformInt(2, 6);

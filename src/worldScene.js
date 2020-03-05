@@ -110,17 +110,18 @@ export default class WorldScene extends Scene {
           '♡♡♡♡♡'.substr(this.world.hero.health),
       );
     }
+    this.game.display.drawText(8, 26, '+++++'.substr(0, this.world.hero.medkits));
     color = 'transparent';
     bg = null;
     if (this.world.hero.hasPistol) {
-      this.game.display.draw(16, 26, '⌐', this.game.tiled ? color : null);
+      this.game.display.draw(21, 26, '⌐', this.game.tiled ? color : null);
     }
     if (this.world.hero.bullets > 0) {
       for (let i = 0; i < ((this.world.hero.bullets % 6) || 6); i += 1) {
-        this.game.display.draw(15 - i, 26, '⁍', this.game.tiled ? color : null);
+        this.game.display.draw(20 - i, 26, '⁍', this.game.tiled ? color : null);
       }
       for (let i = 0; i < ~~((this.world.hero.bullets - 1) / 6); i += 1) {
-        this.game.display.draw(17 + i, 26, '⊠', this.game.tiled ? color : null);
+        this.game.display.draw(22 + i, 26, '⊠', this.game.tiled ? color : null);
       }
     }
     if (this.mouseX === 50 && this.mouseY === 26) {
@@ -187,6 +188,12 @@ export default class WorldScene extends Scene {
           this.world.engine.unlock();
           return;
         }
+        if (this.world.hero.medkits > 0 && this.world.hero.health < 5) {
+          this.world.hero.medkits -= 1;
+          this.world.hero.health += 1;
+          this.world.log.unshift(` you used a medkit `);
+          this.world.engine.unlock();
+        }
       }
       const actor = this.world.getActorAt(
           `${this.eventX},${this.eventY},${this.world.hero.z}`,
@@ -237,6 +244,12 @@ export default class WorldScene extends Scene {
           this.world.hero.target = null;
           this.world.engine.unlock();
           return;
+        }
+        if (this.world.hero.medkits > 0 && this.world.hero.health < 5) {
+          this.world.hero.medkits -= 1;
+          this.world.hero.health += 1;
+          this.world.log.unshift(` you used a medkit `);
+          this.world.engine.unlock();
         }
       }
       if ([37, 65, 100].includes(event.keyCode)) {
