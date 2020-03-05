@@ -6,6 +6,7 @@ import Snake from './snake.js';
 import Bat from './bat.js';
 import Arena from '../lib/rot/map/arena.js';
 import Digger from '../lib/rot/map/digger.js';
+import Rival from './rival.js';
 
 /**
  * Represent the ingame world.
@@ -36,13 +37,15 @@ export default class World {
     this.map = new Map();
     this.items = new Map();
     this.ups = [[]];
-    this.downs = [[39, 12]];
+    this.downs = [[26, 12]];
     this.actors = [];
     let arena = new Arena(52, 25);
     arena.create((x, y, value) => {
       if (value) {
         this.map.set(`${x},${y},0`, RNG.getItem(['~','≈','≋']));
-      } else if (!RNG.getUniformInt(0, 5)) {
+      } else if ((x === 3 || x === 48) && (y % 6 === 3)) {
+        this.map.set(`${x},${y},0`, RNG.getItem(['̬ ', 'ˬ', '˯']));
+      } else if (!RNG.getUniformInt(0, 2)) {
         if (x === 1 || x === 50 || y === 1 || y === 23) {
           this.map.set(`${x},${y},0`, RNG.getItem(['~','≈','≋']));
         } else {
@@ -97,9 +100,11 @@ export default class World {
       arena = new Arena(13, 11);
       arena.create((x, y, value) => {
         if (value) {
-          this.map.set(`${x + 20},${y + 6},8`, '#');
+          this.map.set(`${x + 20},${y + 7},8`, '#');
+          this.map.set(`${x + 20},${y + 7},0`, x % 2 || y % 2 ? '∙' : '#');
         } else {
-          this.map.set(`${x + 20},${y + 6},8`, '•');
+          this.map.set(`${x + 20},${y + 7},8`, '•');
+          this.map.set(`${x + 20},${y + 7},0`, '∙');
         }
       });
       this.ups[z] = rooms[0].getCenter();
@@ -107,13 +112,33 @@ export default class World {
       this.map.set(`${this.ups[z][0]},${this.ups[z][1]},${z}`, '<');
       this.map.set(`${this.downs[z][0]},${this.downs[z][1]},${z}`, '>');
     }
-    this.map.set(`26,8,8`, '<');
-    this.ups.push([26, 8]);
+    this.map.set(`26,9,8`, '<');
+    this.ups.push([26, 9]);
     const foe = new Boss(this, `26,14,8`);
     this.actors.push(foe);
     // this.hero = new Hero(this, `26,7,8`);
     this.hero = new Hero(this, `13,12,0`);
-    this.map.set(`13,12,0`, '˯');
+    let rivals = [];
+    for (let i = 0; i < 7; i += 1) {
+      let rival = new Rival(
+        this,
+        `0,0,0`,
+        ['Ⓟ', 'Ⓨ', 'Ⓑ', 'Ⓖ', 'Ⓥ', 'Ⓦ', 'Ⓞ'][i],
+        ['Pink', 'Yellow', 'Blue', 'Green', 'Violet', 'White', 'Orange'][i],
+      );
+      rivals.push(rival);
+      this.actors.push(rival);
+    }
+    rivals.push(this.hero);
+    rivals = RNG.shuffle(rivals);
+    for (let y = 0; y < 4; y += 1) {
+      rivals[y].x = 3;
+      rivals[y].y = 3 + y * 6;
+      rivals[y].target = [rivals[y].x, rivals[y].y];
+      rivals[y + 4].x = 48;
+      rivals[y + 4].y = 3 + y * 6;      
+      rivals[y + 4].target = [rivals[y + 4].x, rivals[y + 4].y];
+    }
     this.map.set(`${this.downs[0][0]},${this.downs[0][1]},0`, '>');
     // this.items.set(`14,12,0`, '+');
     // this.items.set(`15,12,0`, '+');
