@@ -20,6 +20,7 @@ export default class WinScene extends Scene {
       height: 30,
       fontSize: 24,
       fontFamily: 'monospace',
+      forceSquareRatio: false,
     });
     this.game.display.drawText(33, 1, 'CONGRATULATIONS! YOU WON!');
     this.game.display.drawText(1, 28, '➧Back to main menu');

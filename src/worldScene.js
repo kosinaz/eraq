@@ -71,7 +71,7 @@ export default class WorldScene extends Scene {
             actorChar = actor.char;
           }
           if (this.world.hero.isAt(position)) {
-            actorChar = '@';
+            actorChar = 'Ⓡ';
           }
         }
         if (this.game.tiled) {
@@ -96,7 +96,7 @@ export default class WorldScene extends Scene {
         bg = '#aaa';
       }
     }
-    this.game.display.draw(1, 26, '@', this.game.tiled ? color : null, bg);
+    this.game.display.draw(1, 26, 'Ⓡ', this.game.tiled ? color : null, bg);
     if (this.world.hero.hasFeather) {
       this.game.display.drawText(
           2, 26, '♥♥♥♥♥'.substr(0, this.world.hero.health) +

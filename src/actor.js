@@ -221,7 +221,13 @@ export default class Actor {
    */
   isPassable(x, y) {
     const char = this.world.map.get(this.getPosition(x, y));
-    return char !== '#' && char !== '~' && char !== '♣' && char !== undefined;
+    return char !== '#' &&
+      char !== '~' &&
+      char !== '≈' &&
+      char !== '≋' &&
+      char !== '♣' &&
+      char !== '♠' &&
+      char !== undefined;
   }
 
   /**

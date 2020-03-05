@@ -20,6 +20,7 @@ export default class FailScene extends Scene {
       height: 30,
       fontSize: 24,
       fontFamily: 'monospace',
+      forceSquareRatio: false,
     });
     this.game.display.drawText(40, 1, 'GAME OVER!');
     this.game.display.drawText(1, 28, '➧Back to main menu');

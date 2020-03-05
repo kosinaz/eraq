@@ -21,7 +21,7 @@ export default class Hero extends Actor {
   constructor(world, position) {
     super(world, position);
     this.turns = 1;
-    this.char = '@';
+    this.char = 'Ⓡ';
     this.name = 'you';
     this.health = 5;
     this.damage = 1;

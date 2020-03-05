@@ -41,12 +41,12 @@ export default class World {
     let arena = new Arena(52, 25);
     arena.create((x, y, value) => {
       if (value) {
-        this.map.set(`${x},${y},0`, '~');
+        this.map.set(`${x},${y},0`, RNG.getItem(['~','≈','≋']));
       } else if (!RNG.getUniformInt(0, 5)) {
         if (x === 1 || x === 50 || y === 1 || y === 23) {
-          this.map.set(`${x},${y},0`, '~');
+          this.map.set(`${x},${y},0`, RNG.getItem(['~','≈','≋']));
         } else {
-          this.map.set(`${x},${y},0`, '♣');
+          this.map.set(`${x},${y},0`, RNG.getItem(['♣','♠']));
         }
       } else {
         this.map.set(`${x},${y},0`, RNG.getItem(['̬ ', 'ˬ', '˯']));
@@ -58,7 +58,7 @@ export default class World {
         if (value) {
           this.map.set(`${x},${y},${z}`, '#');
         } else {
-          this.map.set(`${x},${y},${z}`, '‧');
+          this.map.set(`${x},${y},${z}`, RNG.getItem(['‧', '⋅', '∙']));
         }
       });
       const rooms = digger.getRooms();
@@ -99,7 +99,7 @@ export default class World {
         if (value) {
           this.map.set(`${x + 20},${y + 6},8`, '#');
         } else {
-          this.map.set(`${x + 20},${y + 6},8`, '‧');
+          this.map.set(`${x + 20},${y + 6},8`, '•');
         }
       });
       this.ups[z] = rooms[0].getCenter();
@@ -119,8 +119,8 @@ export default class World {
     // this.items.set(`15,12,0`, '⊠');
     // this.items.set(`16,12,0`, '⊠');
     // this.items.set(`17,12,0`, '⊠');
-    // this.items.set(`18,12,0`, '⊠');
-    // this.items.set(`19,12,0`, '⌐');
+    this.items.set(`26,8,8`, '⌐');
+    this.items.set(`26,9,8`, '⊠');
     // this.map.set(`14,12,0`, '˯');
     // this.map.set(`15,12,0`, '˯');
     // this.map.set(`16,12,0`, '˯');

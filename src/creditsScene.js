@@ -15,10 +15,12 @@ export default class CreditsScene extends Scene {
    */
   start() {
     super.start({
+      layout: 'rect',
       width: 91,
       height: 30,
       fontSize: 24,
       fontFamily: 'monospace',
+      forceSquareRatio: false,
     });
     this.game.display.drawText(41, 1, 'Credits');
     // eslint-disable-next-line max-len
