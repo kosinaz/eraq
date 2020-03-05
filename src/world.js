@@ -2,8 +2,15 @@ import Speed from '../lib/rot/scheduler/speed.js';
 import {Engine, RNG} from '../lib/rot/index.js';
 import Hero from './hero.js';
 import Boss from './boss.js';
-import Snake from './snake.js';
 import Bat from './bat.js';
+import Tarantula from './tarantula.js';
+import Snake from './snake.js';
+import Crocodile from './crocodile.js';
+import Dog from './dog.js';
+import Jaguar from './jaguar.js';
+import Monkey from './monkey.js';
+import Lizard from './lizard.js';
+import Eagle from './eagle.js';
 import Arena from '../lib/rot/map/arena.js';
 import Digger from '../lib/rot/map/digger.js';
 import Rival from './rival.js';
@@ -40,6 +47,9 @@ export default class World {
     this.downs = [[26, 12]];
     this.actors = [];
     this.rivals = 7;
+    this.animalOrder = RNG.shuffle(
+        ['snake', 'crocodile', 'dog', 'jaguar', 'monkey', 'lizard', 'eagle'],
+    );
     let arena = new Arena(52, 25);
     arena.create((x, y, value) => {
       if (value) {
@@ -67,7 +77,7 @@ export default class World {
       });
       const rooms = digger.getRooms();
       for (let i = 1; i < rooms.length - 2; i += 1) {
-        const roomType = RNG.getItem(['snake', 'bat']);
+        const roomType = RNG.getItem(['tarantula', 'bat', this.animalOrder[z]]);
         for (let j = 0; j < RNG.getUniformInt(1, z); j += 1) {
           const x = RNG.getUniformInt(rooms[i].getLeft(), rooms[i].getRight());
           const y = RNG.getUniformInt(rooms[i].getTop(), rooms[i].getBottom());
@@ -75,14 +85,28 @@ export default class World {
               (actor) => actor.x === x && actor.y === y,
           );
           if (!actor) {
-            if (roomType === 'snake') {
-              const foe = new Snake(this, `${x},${y},${z}`);
-              this.actors.push(foe);
-              this.target = null;
+            let foe = null;
+            if (roomType === 'tarantula') {
+              foe = new Tarantula(this, `${x},${y},${z}`);
             } else if (roomType === 'bat') {
-              const foe = new Bat(this, `${x},${y},${z}`);
+              foe = new Bat(this, `${x},${y},${z}`);
+            } else if (roomType === 'snake') {
+              foe = new Snake(this, `${x},${y},${z}`);
+            } else if (roomType === 'crocodile') {
+              foe = new Crocodile(this, `${x},${y},${z}`);
+            } else if (roomType === 'dog') {
+              foe = new Dog(this, `${x},${y},${z}`);
+            } else if (roomType === 'jaguar') {
+              foe = new Jaguar(this, `${x},${y},${z}`);
+            } else if (roomType === 'monkey') {
+              foe = new Monkey(this, `${x},${y},${z}`);
+            } else if (roomType === 'lizard') {
+              foe = new Lizard(this, `${x},${y},${z}`);
+            } else if (roomType === 'eagle') {
+              foe = new Eagle(this, `${x},${y},${z}`);
+            }
+            if (foe) {
               this.actors.push(foe);
-              this.target = null;
             }
           }
         }

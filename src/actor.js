@@ -27,6 +27,10 @@ export default class Actor {
    * @memberof Actor
    */
   act() {
+    if (this.poisonRemained) {
+      this.poisonRemained -= 1;
+      this.weaken(1);
+    }
     this.moveToTarget();
   }
 
@@ -124,8 +128,11 @@ export default class Actor {
   weakenAndLog(value) {
     this.health -= value;
     this.world.log[0] += ` ${this.name} lost ${value} health `;
+    if (this.poisonRemained) {
+      this.world.log[0] += 'due to poison';
+    }
     if (this.health < 1) {
-      this.world.log[0] += `and died `;
+      this.world.log[0] += 'and died ';
       this.kill();
     }
   }

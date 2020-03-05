@@ -20,7 +20,7 @@ export default class Bat extends Actor {
     super(world, position);
     this.char = '𝐛';
     this.name = 'bat';
-    this.health = 3;
+    this.health = 2;
     this.damage = 1;
     this.speed = 3;
     this.animal = true;
@@ -30,7 +30,7 @@ export default class Bat extends Actor {
   /**
    * The function that determines the actor's next action. Called by the engine.
    *
-   * @memberof Actor
+   * @memberof Bat
    */
   act() {
     this.target = [

@@ -23,7 +23,7 @@ export default class Hero extends Actor {
     this.turns = 1;
     this.char = 'Ⓡ';
     this.name = 'you';
-    this.health = 5;
+    this.health = 50;
     this.damage = 1;
     this.speed = 3;
     this.hasPistol = false;
@@ -43,6 +43,10 @@ export default class Hero extends Actor {
    */
   act() {
     this.turns += 1;
+    if (this.poisonRemained) {
+      this.weakenAndLog(1);
+      this.poisonRemained -= 1;
+    }
     this.fov = new Set();
     this.ps.compute(this.x, this.y, 11, (x, y) => {
       this.fov.add(`${x},${y}`);
