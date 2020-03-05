@@ -83,7 +83,7 @@ export default class Hero extends Actor {
       this.world.log.unshift('');
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage *= this.hasFeather ? 2 : 1;
-      actor.weaken(damage);
+      actor.weakenAndLog(damage);
       this.target = null;
     } else {
       this.x = this.path[1][0];
@@ -136,7 +136,7 @@ export default class Hero extends Actor {
     this.world.log.unshift(' you fired your pistol ');
     let damage = this.damage + RNG.getUniformInt(0, 3);
     damage *= this.hasFeather ? 2 : 1;
-    actor.weaken(damage);
+    actor.weakenAndLog(damage);
     this.bullets -= 1;
     this.target = null;
     this.ps.compute(this.x, this.y, 11, (x, y) => {

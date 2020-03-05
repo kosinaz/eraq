@@ -23,6 +23,7 @@ export default class Bat extends Actor {
     this.health = 3;
     this.damage = 1;
     this.speed = 3;
+    this.animal = true;
     this.world.scheduler.add(this, true);
   }
 

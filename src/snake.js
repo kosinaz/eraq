@@ -22,6 +22,7 @@ export default class Snake extends Actor {
     this.health = 3;
     this.damage = 1;
     this.speed = 2;
+    this.animal = true;
     this.world.scheduler.add(this, true);
   }
 }

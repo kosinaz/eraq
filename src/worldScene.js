@@ -110,7 +110,9 @@ export default class WorldScene extends Scene {
           '♡♡♡♡♡'.substr(this.world.hero.health),
       );
     }
-    this.game.display.drawText(8, 26, '+++++'.substr(0, this.world.hero.medkits));
+    this.game.display.drawText(
+        8, 26, '+++++'.substr(0, this.world.hero.medkits),
+    );
     color = 'transparent';
     bg = null;
     if (this.world.hero.hasPistol) {

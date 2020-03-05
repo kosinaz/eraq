@@ -109,6 +109,20 @@ export default class Actor {
    */
   weaken(value) {
     this.health -= value;
+    if (this.health < 1) {
+      this.kill();
+    }
+  }
+
+  /**
+   * Decrease the actor's health with the specified value and kill him if
+   * needed.
+   *
+   * @param {number} value
+   * @memberof Actor
+   */
+  weakenAndLog(value) {
+    this.health -= value;
     this.world.log[0] += ` ${this.name} lost ${value} health `;
     if (this.health < 1) {
       this.world.log[0] += `and died `;
@@ -180,21 +194,32 @@ export default class Actor {
    */
   moveToTarget() {
     if (!this.target) {
+      // console.log(this.name, 'has no target');
       return;
     }
     if (!this.isPassable(this.target[0], this.target[1])) {
+      // console.log(this.name, 'has a nonpassable target');
       return;
     }
     this.path = [];
     new AStar(this.target[0], this.target[1], this.isPassable.bind(this))
         .compute(this.x, this.y, (x, y) => this.path.push([x, y]));
     if (this.path.length < 2) {
+      this.target = [this.x, this.y];
+      // console.log(this.name, 'is too close to its target');
       return;
     }
-    const actor = this.world.actors.find(
-        (actor) => actor.x === this.path[1][0] && actor.y === this.path[1][1],
+    const actor = this.world.actors.find((actor) =>
+      actor.isAt(`${this.path[1][0]},${this.path[1][1]},${this.z}`),
     );
     if (actor) {
+      if (actor.animal && this.animal) {
+        // console.log(this.name, 'is in the same team as its target');
+        return;
+      }
+      let damage = this.damage + RNG.getUniformInt(0, 1);
+      damage = ~~(damage / (this.hasFeather ? 2 : 1));
+      actor.weaken(damage);
       return;
     }
     if (
@@ -204,10 +229,9 @@ export default class Actor {
       damage = ~~(damage / (this.hasFeather ? 2 : 1));
       this.world.hero.weaken(damage);
       return;
-    } else {
-      this.x = this.path[1][0];
-      this.y = this.path[1][1];
     }
+    this.x = this.path[1][0];
+    this.y = this.path[1][1];
   }
 
   /**
