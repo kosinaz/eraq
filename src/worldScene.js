@@ -44,10 +44,10 @@ export default class WorldScene extends Scene {
     this.world.hero.explored.forEach((position) => {
       const p = position.split(',');
       if (+p[2] === this.world.hero.z) {
-        const char = this.world.map.get(position);
+        let char = this.world.map.get(position);
         const itemChar = this.world.items.get(position) || ' ';
         let actorChar = ' ';
-        let color = this.game.tiled ? 'rgba(10, 10, 10, 0.75)' : '#888';
+        let color = this.game.tiled ? 'rgba(10, 10, 10, 0.75)' : '#444';
         let bg = '#000';
         if (+p[0] === this.mouseX &&
             +p[1] === this.mouseY &&
@@ -83,7 +83,9 @@ export default class WorldScene extends Scene {
               [bg, 'transparent', 'transparent'],
           );
         } else {
-          this.game.display.draw(+p[0], +p[1], [char, itemChar, actorChar]);
+          char = itemChar === ' ' ? char : itemChar;
+          char = actorChar === ' ' ? char : actorChar;
+          this.game.display.draw(+p[0], +p[1], char, color, bg);
         }
       }
     });
