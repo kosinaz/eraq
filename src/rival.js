@@ -133,8 +133,8 @@ export default class Rival extends Actor {
       this.target = RNG.getItem(floors);
       // console.log(this.name, 'moves randomly to', this.target);
     }
-    if (victim) {
-      this.fire();
+    if (victim && this.hasPistol && this.bullets > 0) {
+      this.fire(victim);
     } else {
       this.moveToTarget();
     }
@@ -149,7 +149,11 @@ export default class Rival extends Actor {
   fire(actor) {
     let damage = this.damage + RNG.getUniformInt(0, 1);
     damage *= this.hasFeather ? 2 : 1;
-    this.world.log.unshift(` ${this.name} shot ${actor.name}.`);
+    if (this.isVisible()) {
+      this.world.log[0] += ` ${this.name} shot ${actor.name}.`;
+    } else {
+      this.world.log[0] += ' You heard a shot.';
+    }
     actor.weaken(damage);
     this.bullets -= 1;
     this.target = null;
@@ -164,11 +168,11 @@ export default class Rival extends Actor {
     this.world.actors.splice(this.world.actors.indexOf(this), 1);
     this.world.scheduler.remove(this);
     if (this.hasPistol) {
-      this.world.items.set(floors.pop(), '⌐');
+      this.world.items.set(this.position, '⌐');
     } else if (this.medkits > 0) {
-      this.world.items.set(floors.pop(), '+');
+      this.world.items.set(this.position, '+');
     } else if (this.bullets > 5) {
-      this.world.items.set(floors.pop(), '⁍');
+      this.world.items.set(this.position, '⁍');
     }
   }
 }

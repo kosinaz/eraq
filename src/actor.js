@@ -233,7 +233,8 @@ export default class Actor {
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage = ~~(damage / (this.hasFeather ? 2 : 1));
       if (this.isVisible()) {
-        this.world.log[0] += ` ${this.name} hit ${actor.name}.`;
+        this.world.log[0] += ` ${this.name} hit ${actor.name}`;
+        this.world.log[0] += `${this.hasPistol ? ' with a pistol' : '' }.`;
       }
       actor.weaken(damage);
       return;
