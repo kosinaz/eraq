@@ -24,18 +24,40 @@ export default class HelpScene extends Scene {
     });
     this.game.display.drawText(43, 1, 'Help');
     this.game.display.drawText(
-        2, 4, 'Move or attack with mouse or arrow or num or wasd keys',
+        2, 3, ' You are Emmanuel de Rouge, the professor of archeology.' +
+        ' Through research you learned about a forgotten Aztec temple' +
+        ' that holds the golden feather of divine powers, the Amulet of' +
+        ' Quetzalcoatl.',
     );
     this.game.display.drawText(
-        2, 6, 'Move upstairs or downstairs with mouse or enter key',
+        2, 7, ' You decided to get it and finally found the island, but your' +
+        ' rivals followed you. They will try to get the feather at all costs.',
     );
     this.game.display.drawText(
-        2, 8, 'Set console or tile-based display with mouse or t key',
+        2, 12, ' Move with left click on the ground or with arrow or Num or' +
+        ' WASD keys',
     );
     this.game.display.drawText(
-        2, 10, 'Mute or unmute the music with mouse or m key',
+        2, 14, ' Move upstairs or downstairs with left click on the stairs or' +
+        ' with the Enter key',
     );
-    this.game.display.drawText(1, 28, '➧Back');
+    this.game.display.drawText(
+        2, 16, ' Attack with left click on the enemy or by moving into the ' +
+        'position of the enemy',
+    );
+    this.game.display.drawText(
+        2, 18, ' Heal yourself with left click on your character or on the' +
+        ' heart or medkit symbols on the HUD or with the Enter key',
+    );
+    this.game.display.drawText(
+        2, 21, ' Set console or tile-based display with left click on the ' +
+        'symbol of your character on the HUD or with the T key',
+    );
+    this.game.display.drawText(
+        2, 24, ' Mute or unmute the music with left click on the music ' +
+        'symbol on the HUD or with the M key',
+    );
+    this.game.display.drawText(2, 28, '➧Back');
   }
 
   /**

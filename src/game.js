@@ -148,7 +148,7 @@ Game.tileOptions = {
 };
 Game.display = new Display(Game.menuOptions);
 Game.display.drawText = function(x, y, text, color, width) {
-  width = width || 80;
+  width = width || 85;
   const words = text.split(' ');
   const rows = [''];
   let j = 0;
