@@ -97,15 +97,21 @@ export default class Rival extends Actor {
         newTarget = [x, y];
         return;
       }
-      if (this.world.hero.isAt(position) &&
-          ((this.hasPistol &&
-          this.bullets > 0) ||
-          (Math.abs(this.world.hero.x - this.x) < 2 &&
-          Math.abs(this.world.hero.y - this.y) < 2))) {
-        newTarget = [x, y];
-        victim = this.world.hero;
-        // console.log(this.name, 'found hero');
-        return;
+      // console.log(this.world.hero.isAt(position));
+      if (this.world.hero.isAt(position)) {
+        // console.log(this.name, 'pistol', this.hasPistol);
+        // console.log(this.name, 'bullets', this.bullets);
+        // console.log(this.name, 'x', Math.abs(this.world.hero.x - this.x) < 2);
+        // console.log(this.name, 'y', Math.abs(this.world.hero.y - this.y) < 2);
+        if ((this.hasPistol &&
+            this.bullets > 0) ||
+            (Math.abs(this.world.hero.x - this.x) < 2 &&
+            Math.abs(this.world.hero.y - this.y) < 2)) {
+          newTarget = [x, y];
+          victim = this.world.hero;
+          // console.log(this.name, 'found hero');
+          return;
+        }
       }
       const actor = this.world.actors.find((actor) =>
         actor.isAt(position));
@@ -120,10 +126,10 @@ export default class Rival extends Actor {
         // console.log(this.name, 'found actor');
         return;
       }
-      if (this.hasPistol) {
-        newTarget = [this.world.ups[this.z][0] + 1, this.world.ups[this.z][1]];
-      }
     });
+    if (this.hasPistol && !newTarget) {
+      newTarget = [this.world.ups[this.z][0] + 1, this.world.ups[this.z][1]];
+    }
     if (newTarget) {
       this.target = newTarget;
       // console.log(this.name, 'moves to new target');

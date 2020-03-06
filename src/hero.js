@@ -137,7 +137,7 @@ export default class Hero extends Actor {
     this.ps.compute(this.x, this.y, 11, (x, y) => {
       const actor = this.world.actors.find((actor) =>
         actor.isAt(this.getPosition(x, y)));
-      if (actor) {
+      if (actor && actor.animal) {
         actor.target = [this.world.hero.x, this.world.hero.y];
       }
     });

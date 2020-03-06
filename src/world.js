@@ -60,7 +60,7 @@ export default class World {
           this.map.set(`${x},${y},0`, RNG.getItem(['̬ ', 'ˬ', '˯']));
         }
       } else {
-        if (value && RNG.getUniformInt(0, 4)) {
+        if (value && RNG.getUniformInt(0, 2)) {
           this.map.set(`${x},${y},0`, RNG.getItem(['♣', '♠']));
         } else {
           this.map.set(`${x},${y},0`, RNG.getItem(['̬ ', 'ˬ', '˯']));
@@ -86,7 +86,7 @@ export default class World {
         }
       }
       floors = RNG.shuffle(floors);
-      for (let i = 0; i < z * 2; i += 1) {
+      for (let i = 0; i < 3; i += 1) {
         if (!floors.length) {
           break;
         }
@@ -108,15 +108,6 @@ export default class World {
       }
       if (floors.length) {
         this.actors.push(new Tarantula(this, floors.pop()));
-      }
-      if (floors.length) {
-        this.actors.push(new Tarantula(this, floors.pop()));
-      }
-      if (floors.length) {
-        this.actors.push(new Bat(this, floors.pop()));
-      }
-      if (floors.length) {
-        this.actors.push(new Bat(this, floors.pop()));
       }
       if (floors.length) {
         this.actors.push(new Bat(this, floors.pop()));
