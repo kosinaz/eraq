@@ -49,15 +49,15 @@ export default class Monkey extends Actor {
         if (this.world.hero.hasPistol) {
           this.world.hero.hasPistol = false;
           this.hasPistol = true;
-          this.world.log.unshift(' monkey stole your pistol ');
+          this.world.log.unshift(' Monkey stole your pistol!');
         } else if (this.world.hero.medkits > 0) {
           this.world.hero.medkits -= 1;
           this.medkits += 1;
-          this.world.log.unshift(' monkey stole your medkit ');
+          this.world.log.unshift(' Monkey stole your 1+!');
         } else if (this.world.hero.bullets > 5) {
           this.world.hero.bullets -= 6;
           this.bullets += 6;
-          this.world.log.unshift(' monkey stole your bullets ');
+          this.world.log.unshift(' Monkey stole your 6⁍!');
         }
         this.target[0] = this.x - this.target[0] > this.x ? 1 : 0;
         this.target[0] = this.x + this.target[0] < this.x ? 1 : 0;
@@ -65,6 +65,23 @@ export default class Monkey extends Actor {
         this.target[1] = this.y + this.target[0] < this.y ? 1 : 0;
       }
       this.moveToTarget();
+    }
+  }
+
+  /**
+   * Kills the actor.
+   *
+   * @memberof Actor
+   */
+  kill() {
+    this.world.actors.splice(this.world.actors.indexOf(this), 1);
+    this.world.scheduler.remove(this);
+    if (this.hasPistol) {
+      this.world.items.set(floors.pop(), '⌐');
+    } else if (this.medkits > 0) {
+      this.world.items.set(floors.pop(), '+');
+    } else if (this.bullets > 5) {
+      this.world.items.set(floors.pop(), '⁍');
     }
   }
 }

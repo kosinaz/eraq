@@ -23,8 +23,8 @@ export default class Hero extends Actor {
     this.turns = 1;
     this.char = 'Ⓡ';
     this.name = 'You';
-    this.health = 5;
-    this.damage = 0;
+    this.health = 10;
+    this.damage = 1;
     this.speed = 3;
     this.hasPistol = false;
     this.hasFeather = false;
@@ -151,7 +151,7 @@ export default class Hero extends Actor {
    * @memberof Hero
    */
   fireAndUnlock(actor) {
-    let damage = this.damage + RNG.getUniformInt(0, 3);
+    let damage = this.damage + RNG.getUniformInt(0, 1);
     damage *= this.hasFeather ? 2 : 1;
     this.world.log.unshift(` You shot ${actor.name}.`);
     actor.weaken(damage);

@@ -102,31 +102,31 @@ export default class WorldScene extends Scene {
     this.game.display.draw(1, 25, 'Ⓡ', this.game.tiled ? color : null, bg);
     if (this.world.hero.hasFeather) {
       this.game.display.drawText(
-          2, 25, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
-          '♡♡♡♡♡'.substr(this.world.hero.health),
+          2, 25, '♥♥♥♥♥♥♥♥♥♥'.substr(0, this.world.hero.health) +
+          '♡♡♡♡♡♡♡♡♡♡'.substr(this.world.hero.health),
           'rgba(255, 255, 0, 0.33)',
       );
-      this.game.display.draw(7, 26, '⤁', this.game.tiled ? color : null);
+      this.game.display.draw(12, 26, '⤁', this.game.tiled ? color : null);
     } else {
       this.game.display.drawText(
-          2, 25, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
-          '♡♡♡♡♡'.substr(this.world.hero.health),
+          2, 25, '♥♥♥♥♥♥♥♥♥♥'.substr(0, this.world.hero.health) +
+          '♡♡♡♡♡♡♡♡♡♡'.substr(this.world.hero.health),
       );
     }
     this.game.display.drawText(
-        8, 25, '+++++'.substr(0, this.world.hero.medkits),
+        13, 25, '+++++'.substr(0, this.world.hero.medkits),
     );
     color = 'transparent';
     bg = null;
     if (this.world.hero.hasPistol) {
-      this.game.display.draw(21, 25, '⌐', this.game.tiled ? color : null);
+      this.game.display.draw(26, 25, '⌐', this.game.tiled ? color : null);
     }
     if (this.world.hero.bullets > 0) {
       for (let i = 0; i < ((this.world.hero.bullets % 6) || 6); i += 1) {
-        this.game.display.draw(20 - i, 25, '⁍', this.game.tiled ? color : null);
+        this.game.display.draw(25 - i, 25, '⁍', this.game.tiled ? color : null);
       }
       for (let i = 0; i < ~~((this.world.hero.bullets - 1) / 6); i += 1) {
-        this.game.display.draw(22 + i, 25, '⊠', this.game.tiled ? color : null);
+        this.game.display.draw(27 + i, 25, '⊠', this.game.tiled ? color : null);
       }
     }
     if (this.mouseX === 50 && this.mouseY === 25) {
@@ -179,10 +179,10 @@ export default class WorldScene extends Scene {
         return;
       }
       if (this.eventX > 1 &&
-          this.eventX < 14 &&
+          this.eventX < 19 &&
           this.eventY === 25 &&
           this.world.hero.medkits > 0 &&
-          this.world.hero.health < 5) {
+          this.world.hero.health < 10) {
         this.world.hero.medkits -= 1;
         this.world.hero.health += 1;
         this.world.log.unshift(` You used 1+.`);
@@ -210,7 +210,7 @@ export default class WorldScene extends Scene {
           this.world.engine.unlock();
           return;
         }
-        if (this.world.hero.medkits > 0 && this.world.hero.health < 5) {
+        if (this.world.hero.medkits > 0 && this.world.hero.health < 10) {
           this.world.hero.medkits -= 1;
           this.world.hero.health += 1;
           this.world.log.unshift(` You used 1+.`);
@@ -273,7 +273,7 @@ export default class WorldScene extends Scene {
           this.world.engine.unlock();
           return;
         }
-        if (this.world.hero.medkits > 0 && this.world.hero.health < 5) {
+        if (this.world.hero.medkits > 0 && this.world.hero.health < 10) {
           this.world.hero.medkits -= 1;
           this.world.hero.health += 1;
           this.world.log.unshift(` You used 1+.`);

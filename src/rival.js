@@ -22,13 +22,14 @@ export default class Rival extends Actor {
     super(world, position);
     this.char = char;
     this.name = name;
-    this.health = 5;
-    this.damage = 0;
+    this.health = 10;
+    this.damage = 1;
     this.speed = 3;
     this.hasPistol = false;
     this.hasFeather = false;
     this.medkits = 0;
     this.bullets = 0;
+    this.rival = true;
     this.target = [this.x, this.y];
     this.ps = new PreciseShadowcasting(this.isPassable.bind(this));
     this.world.scheduler.add(this, true);
@@ -75,6 +76,7 @@ export default class Rival extends Actor {
       }
     }
     let newTarget = null;
+    let victim = null;
     const floors = [];
     this.ps.compute(this.x, this.y, 11, (x, y) => {
       if (newTarget) {
@@ -95,17 +97,31 @@ export default class Rival extends Actor {
         newTarget = [x, y];
         return;
       }
-      if (this.world.hero.isAt(position)) {
+      if (this.world.hero.isAt(position) &&
+          ((this.hasPistol &&
+          this.bullets > 0) ||
+          (Math.abs(this.world.hero.x - this.x) < 2 &&
+          Math.abs(this.world.hero.y - this.y) < 2))) {
         newTarget = [x, y];
+        victim = this.world.hero;
         // console.log(this.name, 'found hero');
         return;
       }
       const actor = this.world.actors.find((actor) =>
         actor.isAt(position));
-      if (actor && actor !== this) {
+      if (actor &&
+          actor !== this &&
+          ((this.hasPistol &&
+          this.bullets > 0) ||
+          (Math.abs(actor.x - this.x) < 2 &&
+          Math.abs(actor.y - this.y) < 2))) {
         newTarget = [actor.x, actor.y];
+        victim = actor;
         // console.log(this.name, 'found actor');
         return;
+      }
+      if (this.hasPistol) {
+        newTarget = [this.world.ups[this.z][0] + 1, this.world.ups[this.z][1]];
       }
     });
     if (newTarget) {
@@ -117,7 +133,26 @@ export default class Rival extends Actor {
       this.target = RNG.getItem(floors);
       // console.log(this.name, 'moves randomly to', this.target);
     }
-    this.moveToTarget();
+    if (victim) {
+      this.fire();
+    } else {
+      this.moveToTarget();
+    }
+  }
+
+  /**
+   * Attack the target actor from afar.
+   *
+   * @param {Actor} actor
+   * @memberof Rival
+   */
+  fire(actor) {
+    let damage = this.damage + RNG.getUniformInt(0, 1);
+    damage *= this.hasFeather ? 2 : 1;
+    this.world.log.unshift(` ${this.name} shot ${actor.name}.`);
+    actor.weaken(damage);
+    this.bullets -= 1;
+    this.target = null;
   }
 
   /**
@@ -126,10 +161,14 @@ export default class Rival extends Actor {
    * @memberof Actor
    */
   kill() {
-    this.world.log.unshift(
-        ` ${this.name} died! ${--this.world.rivals} rivals left.`,
-    );
     this.world.actors.splice(this.world.actors.indexOf(this), 1);
     this.world.scheduler.remove(this);
+    if (this.hasPistol) {
+      this.world.items.set(floors.pop(), '⌐');
+    } else if (this.medkits > 0) {
+      this.world.items.set(floors.pop(), '+');
+    } else if (this.bullets > 5) {
+      this.world.items.set(floors.pop(), '⁍');
+    }
   }
 }
