@@ -23,6 +23,7 @@ export default class FailScene extends Scene {
       forceSquareRatio: false,
     });
     this.game.display.drawText(40, 1, 'GAME OVER!');
+    this.game.display.drawText(0, 3, this.game.mortem[0]);
     this.game.display.drawText(1, 28, '➧Back to main menu');
   }
 

@@ -18,7 +18,7 @@ export default class Tarantula extends Actor {
   constructor(world, position) {
     super(world, position);
     this.char = '𝐭';
-    this.name = 'tarantula';
+    this.name = 'Tarantula';
     this.health = 1;
     this.damage = 1;
     this.speed = 2;

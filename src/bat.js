@@ -19,7 +19,7 @@ export default class Bat extends Actor {
   constructor(world, position) {
     super(world, position);
     this.char = '𝐛';
-    this.name = 'bat';
+    this.name = 'Bat';
     this.health = 2;
     this.damage = 1;
     this.speed = 3;

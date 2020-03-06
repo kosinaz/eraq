@@ -126,7 +126,9 @@ export default class Rival extends Actor {
    * @memberof Actor
    */
   kill() {
-    this.world.log.unshift(` ${this.name} died ${--this.world.rivals} left `);
+    this.world.log.unshift(
+        ` ${this.name} died! ${--this.world.rivals} rivals left.`,
+    );
     this.world.actors.splice(this.world.actors.indexOf(this), 1);
     this.world.scheduler.remove(this);
   }

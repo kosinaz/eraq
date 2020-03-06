@@ -38,6 +38,7 @@ export default class WorldScene extends Scene {
       return;
     }
     if (this.world.hero.died) {
+      this.game.mortem = this.world.log;
       this.switchTo(this.game.failScene);
       return;
     }
@@ -98,37 +99,37 @@ export default class WorldScene extends Scene {
         bg = '#aaa';
       }
     }
-    this.game.display.draw(1, 26, 'Ⓡ', this.game.tiled ? color : null, bg);
+    this.game.display.draw(1, 25, 'Ⓡ', this.game.tiled ? color : null, bg);
     if (this.world.hero.hasFeather) {
       this.game.display.drawText(
-          2, 26, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
+          2, 25, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
           '♡♡♡♡♡'.substr(this.world.hero.health),
           'rgba(255, 255, 0, 0.33)',
       );
       this.game.display.draw(7, 26, '⤁', this.game.tiled ? color : null);
     } else {
       this.game.display.drawText(
-          2, 26, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
+          2, 25, '♥♥♥♥♥'.substr(0, this.world.hero.health) +
           '♡♡♡♡♡'.substr(this.world.hero.health),
       );
     }
     this.game.display.drawText(
-        8, 26, '+++++'.substr(0, this.world.hero.medkits),
+        8, 25, '+++++'.substr(0, this.world.hero.medkits),
     );
     color = 'transparent';
     bg = null;
     if (this.world.hero.hasPistol) {
-      this.game.display.draw(21, 26, '⌐', this.game.tiled ? color : null);
+      this.game.display.draw(21, 25, '⌐', this.game.tiled ? color : null);
     }
     if (this.world.hero.bullets > 0) {
       for (let i = 0; i < ((this.world.hero.bullets % 6) || 6); i += 1) {
-        this.game.display.draw(20 - i, 26, '⁍', this.game.tiled ? color : null);
+        this.game.display.draw(20 - i, 25, '⁍', this.game.tiled ? color : null);
       }
       for (let i = 0; i < ~~((this.world.hero.bullets - 1) / 6); i += 1) {
-        this.game.display.draw(22 + i, 26, '⊠', this.game.tiled ? color : null);
+        this.game.display.draw(22 + i, 25, '⊠', this.game.tiled ? color : null);
       }
     }
-    if (this.mouseX === 50 && this.mouseY === 26) {
+    if (this.mouseX === 50 && this.mouseY === 25) {
       if (this.game.tiled) {
         color = 'rgba(255, 255, 255, 0.25)';
       } else {
@@ -137,11 +138,11 @@ export default class WorldScene extends Scene {
     }
     this.game.display.draw(
         50,
-        26,
+        25,
         this.music.muted ? '🕨' : '🕪',
         this.game.tiled ? color : null, bg,
     );
-    this.game.display.drawText(0, 28, this.world.log[0].slice(-80));
+    this.game.display.drawText(0, 26, this.world.log[0], null, 50);
   }
 
   /**
@@ -161,12 +162,12 @@ export default class WorldScene extends Scene {
       this.update();
       return;
     } else if (event.type === 'mousedown') {
-      if (this.eventX === 50 && this.eventY === 26) {
+      if (this.eventX === 50 && this.eventY === 25) {
         this.music.muted = !this.music.muted;
         this.update();
         return;
       }
-      if (this.eventX === 1 && this.eventY === 26) {
+      if (this.eventX === 1 && this.eventY === 25) {
         this.game.tiled = !this.game.tiled;
         this.game.display.setOptions(
           this.game.tiled ? this.game.tileOptions : this.game.rectOptions,
@@ -177,11 +178,25 @@ export default class WorldScene extends Scene {
         this.update();
         return;
       }
+      if (this.eventX > 1 &&
+          this.eventX < 14 &&
+          this.eventY === 25 &&
+          this.world.hero.medkits > 0 &&
+          this.world.hero.health < 5) {
+        this.world.hero.medkits -= 1;
+        this.world.hero.health += 1;
+        this.world.log.unshift(` You used 1+.`);
+        this.world.engine.unlock();
+        return;
+      }
       if (this.world.hero.isAtXY(this.eventX, this.eventY)) {
         if (char === '<') {
           this.world.hero.z -= 1;
           this.world.hero.x = this.world.downs[this.world.hero.z][0];
           this.world.hero.y = this.world.downs[this.world.hero.z][1];
+          this.world.log.unshift(
+              ` You returned to level ${this.world.hero.z}.`,
+          );
           this.world.engine.unlock();
           return;
         }
@@ -189,13 +204,16 @@ export default class WorldScene extends Scene {
           this.world.hero.z += 1;
           this.world.hero.x = this.world.ups[this.world.hero.z][0];
           this.world.hero.y = this.world.ups[this.world.hero.z][1];
+          this.world.log.unshift(
+              ` You went down to level ${this.world.hero.z}.`,
+          );
           this.world.engine.unlock();
           return;
         }
         if (this.world.hero.medkits > 0 && this.world.hero.health < 5) {
           this.world.hero.medkits -= 1;
           this.world.hero.health += 1;
-          this.world.log.unshift(` you used a medkit `);
+          this.world.log.unshift(` You used 1+.`);
           this.world.engine.unlock();
         }
       }
@@ -237,6 +255,9 @@ export default class WorldScene extends Scene {
           this.world.hero.z -= 1;
           this.world.hero.x = this.world.downs[this.world.hero.z][0];
           this.world.hero.y = this.world.downs[this.world.hero.z][1];
+          this.world.log.unshift(
+              ` You returned to level ${this.world.hero.z}.`,
+          );
           this.world.hero.target = null;
           this.world.engine.unlock();
           return;
@@ -245,6 +266,9 @@ export default class WorldScene extends Scene {
           this.world.hero.z += 1;
           this.world.hero.x = this.world.ups[this.world.hero.z][0];
           this.world.hero.y = this.world.ups[this.world.hero.z][1];
+          this.world.log.unshift(
+              ` You went down to level ${this.world.hero.z}.`,
+          );
           this.world.hero.target = null;
           this.world.engine.unlock();
           return;
@@ -252,7 +276,7 @@ export default class WorldScene extends Scene {
         if (this.world.hero.medkits > 0 && this.world.hero.health < 5) {
           this.world.hero.medkits -= 1;
           this.world.hero.health += 1;
-          this.world.log.unshift(` you used a medkit `);
+          this.world.log.unshift(` You used 1+.`);
           this.world.engine.unlock();
         }
       }

@@ -77,7 +77,7 @@ Game.tileOptions = {
     '⊠': [72, 120],
     '⁍': [96, 120],
     ':': [216, 216],
-    '.': [216, 216],
+    '.': [96, 264],
     '!': [24, 240],
     '0': [144, 264],
     '1': [168, 264],
@@ -147,10 +147,42 @@ Game.tileOptions = {
   height: 30,
 };
 Game.display = new Display(Game.menuOptions);
-Game.display.drawText = function(x, y, text, color) {
-  for (let i = 0; i < text.length; i += 1) {
-    this.draw(x + i, y, text[i], Game.tiled ? color || 'transparent' : null);
-  };
+Game.display.drawText = function(x, y, text, color, width) {
+  width = width || 80;
+  const words = text.split(' ');
+  const rows = [''];
+  let j = 0;
+  for (let i = 0; i < words.length; i += 1) {
+    if (rows[j].length + words[i].length + 1 > width) {
+      j += 1;
+      rows[j] = ' ';
+    }
+    rows[j] += `${words[i]} `;
+  }
+  if (rows.length > 2) {
+    const row = rows.pop();
+    for (let i = 0; i < row.length; i += 1) {
+      this.draw(
+          x + i, y + 2, row[i], Game.tiled ? color || 'transparent' : null,
+      );
+    };
+  }
+  if (rows.length > 1) {
+    const row = rows.pop();
+    for (let i = 0; i < row.length; i += 1) {
+      this.draw(
+          x + i, y + 1, row[i], Game.tiled ? color || 'transparent' : null,
+      );
+    };
+  }
+  if (rows.length > 0) {
+    const row = rows.pop();
+    for (let i = 0; i < row.length; i += 1) {
+      this.draw(
+          x + i, y, row[i], Game.tiled ? color || 'transparent' : null,
+      );
+    };
+  }
 };
 Game.canvas = Game.display.getContainer();
 document.body.appendChild(Game.canvas);

@@ -18,7 +18,7 @@ export default class Crocodile extends Actor {
   constructor(world, position) {
     super(world, position);
     this.char = '𝐜';
-    this.name = 'crocodile';
+    this.name = 'Crocodile';
     this.health = 10;
     this.damage = 4;
     this.speed = 1;

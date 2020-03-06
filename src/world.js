@@ -65,7 +65,7 @@ export default class World {
         } else {
           this.map.set(`${x},${y},0`, RNG.getItem(['̬ ', 'ˬ', '˯']));
         }
-      } 
+      }
     });
     const digger = new Digger(52, 25);
     for (let z = 1; z < 8; z += 1) {
@@ -77,7 +77,7 @@ export default class World {
         }
       });
       let floors = [];
-      const rooms = digger.getRooms();      
+      const rooms = digger.getRooms();
       for (let i = 1; i < rooms.length - 2; i += 1) {
         for (let x = rooms[i].getLeft(); x < rooms[i].getRight(); x += 1) {
           for (let y = rooms[i].getTop(); y < rooms[i].getBottom(); y += 1) {
@@ -86,32 +86,53 @@ export default class World {
         }
       }
       floors = RNG.shuffle(floors);
-      for (let i = 0; i < z * 2; i += 1) {    
+      for (let i = 0; i < z * 2; i += 1) {
+        if (!floors.length) {
+          break;
+        }
         if (this.animalOrder[z] === 'snake') {
-          this.actors.push(new Snake(this, floors[i]));
+          this.actors.push(new Snake(this, floors.pop()));
         } else if (this.animalOrder[z] === 'crocodile') {
-          this.actors.push(new Crocodile(this, floors[i]));
+          this.actors.push(new Crocodile(this, floors.pop()));
         } else if (this.animalOrder[z] === 'dog') {
-          this.actors.push(new Dog(this, floors[i]));
+          this.actors.push(new Dog(this, floors.pop()));
         } else if (this.animalOrder[z] === 'jaguar') {
-          this.actors.push(new Jaguar(this, floors[i]));
+          this.actors.push(new Jaguar(this, floors.pop()));
         } else if (this.animalOrder[z] === 'monkey') {
-          this.actors.push(new Monkey(this, floors[i]));
+          this.actors.push(new Monkey(this, floors.pop()));
         } else if (this.animalOrder[z] === 'lizard') {
-          this.actors.push(new Lizard(this, floors[i]));
+          this.actors.push(new Lizard(this, floors.pop()));
         } else if (this.animalOrder[z] === 'eagle') {
-          this.actors.push(new Eagle(this, floors[i]));
+          this.actors.push(new Eagle(this, floors.pop()));
         }
       }
-      this.actors.push(new Tarantula(this, floors[z * 2]));
-      this.actors.push(new Tarantula(this, floors[z * 2 + 1]));
-      this.actors.push(new Bat(this, floors[z * 2 + 2]));
-      this.actors.push(new Bat(this, floors[z * 2 + 3]));
-      this.actors.push(new Bat(this, floors[z * 2 + 4]));
-      this.actors.push(new Bat(this, floors[z * 2 + 5]));
-      this.items.set(floors[z * 2 + 6], '+');
-      this.items.set(floors[z * 2 + 7], '+');
-      this.items.set(floors[z * 2 + 8], RNG.getItem(['⊠', '⌐']));
+      if (floors.length) {
+        this.actors.push(new Tarantula(this, floors.pop()));
+      }
+      if (floors.length) {
+        this.actors.push(new Tarantula(this, floors.pop()));
+      }
+      if (floors.length) {
+        this.actors.push(new Bat(this, floors.pop()));
+      }
+      if (floors.length) {
+        this.actors.push(new Bat(this, floors.pop()));
+      }
+      if (floors.length) {
+        this.actors.push(new Bat(this, floors.pop()));
+      }
+      if (floors.length) {
+        this.actors.push(new Bat(this, floors.pop()));
+      }
+      if (floors.length) {
+        this.items.set(floors.pop(), '+');
+      }
+      if (floors.length) {
+        this.items.set(floors.pop(), '+');
+      }
+      if (floors.length) {
+        this.items.set(floors.pop(), RNG.getItem(['⊠', '⌐']));
+      }
       const arena = new Arena(13, 11);
       arena.create((x, y, value) => {
         if (value) {

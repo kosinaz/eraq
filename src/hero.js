@@ -22,7 +22,7 @@ export default class Hero extends Actor {
     super(world, position);
     this.turns = 1;
     this.char = 'Ⓡ';
-    this.name = 'you';
+    this.name = 'You';
     this.health = 5;
     this.damage = 0;
     this.speed = 3;
@@ -84,40 +84,54 @@ export default class Hero extends Actor {
       actor.isAt(this.getPosition(this.path[1][0], this.path[1][1])),
     );
     if (actor) {
-      this.world.log.unshift('');
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage *= this.hasFeather ? 2 : 1;
-      actor.weakenAndLog(damage);
+      this.world.log.unshift(` You hit ${actor.name}.`);
+      actor.weaken(damage);
       this.target = null;
     } else {
       this.x = this.path[1][0];
       this.y = this.path[1][1];
-      const char = this.world.items.get(this.position);
+      let char = this.world.items.get(this.position);
       if (char) {
         if (char === '⤁') {
           this.world.items.delete(this.position);
           this.hasFeather = true;
           this.speed = 6;
-          this.world.log.unshift(` YOU HAVE THE GOLDEN FEATHER! `);
+          this.world.log.unshift(` YOU HAVE THE GOLDEN FEATHER!`);
         } else if (char === '+' && this.medkits < 5) {
           this.world.items.delete(this.position);
           this.medkits += 1;
-          this.world.log.unshift(` you picked up a medkit `);
+          this.world.log.unshift(` You picked up 1+.`);
         } else if (char === '⊠') {
           this.world.items.delete(this.position);
-          const bullets = RNG.getUniformInt(2, 6);
+          const bullets = RNG.getUniformInt(1, 6);
           this.bullets += bullets;
-          this.world.log.unshift(` you picked up ${bullets} bullets `);
+          this.world.log.unshift(` You picked up ${bullets}⁍.`);
         } else if (char === '⌐') {
           this.world.items.delete(this.position);
-          const bullets = RNG.getUniformInt(2, 6);
+          const bullets = RNG.getUniformInt(1, 6);
           this.hasPistol = true;
           this.damage = 3;
           this.bullets += bullets;
-          this.world.log.unshift(
-              ` you picked up a pistol with ${bullets} bullets `,
-          );
+          this.world.log.unshift(` You picked up a pistol with ${bullets}⁍.`);
         }
+      }
+      char = this.world.map.get(this.position);
+      if (char === '<') {
+        this.z -= 1;
+        this.x = this.world.downs[this.z][0];
+        this.y = this.world.downs[this.z][1];
+        this.world.log.unshift(
+            ` You returned to level ${this.world.hero.z}.`,
+        );
+      } else if (char === '>') {
+        this.z += 1;
+        this.x = this.world.ups[this.z][0];
+        this.y = this.world.ups[this.z][1];
+        this.world.log.unshift(
+            ` You went down to level ${this.world.hero.z}.`,
+        );
       }
     }
     this.ps.compute(this.x, this.y, 11, (x, y) => {
@@ -137,19 +151,12 @@ export default class Hero extends Actor {
    * @memberof Hero
    */
   fireAndUnlock(actor) {
-    this.world.log.unshift(' you fired your pistol ');
     let damage = this.damage + RNG.getUniformInt(0, 3);
     damage *= this.hasFeather ? 2 : 1;
-    actor.weakenAndLog(damage);
+    this.world.log.unshift(` You shot ${actor.name}.`);
+    actor.weaken(damage);
     this.bullets -= 1;
     this.target = null;
-    this.ps.compute(this.x, this.y, 11, (x, y) => {
-      const actor = this.world.actors.find((actor) =>
-        actor.isAt(this.getPosition(x, y)));
-      if (actor) {
-        actor.target = [this.world.hero.x, this.world.hero.y];
-      }
-    });
     this.world.engine.unlock();
   }
 

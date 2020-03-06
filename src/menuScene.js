@@ -22,8 +22,8 @@ export default class MenuScene extends Scene {
       fontFamily: 'title',
     });
     this.selected = 0;
-    this.game.display.drawText(5, 1, '   Emmanuel de Rouge  ');
-    this.game.display.drawText(5, 3, '        and the       ');
+    this.game.display.drawText(8, 1, 'Emmanuel de Rouge');
+    this.game.display.drawText(13, 3, 'and the');
     this.game.display.drawText(5, 5, 'Amulet of Quetzalcoatl');
     this.game.display.drawText(1, 10, '➧Start');
     this.game.display.drawText(2, 12, 'Help');

@@ -18,7 +18,7 @@ export default class Boss extends Actor {
   constructor(world, position) {
     super(world, position);
     this.char = '𝐒';
-    this.name = 'doubleheaded snake';
+    this.name = 'Doubleheaded snake';
     this.health = 30;
     this.damage = 3;
     this.speed = 2;

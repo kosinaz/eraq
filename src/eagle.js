@@ -81,6 +81,9 @@ export default class Eagle extends Actor {
       }
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage = ~~(damage / (this.hasFeather ? 2 : 1));
+      if (this.isVisible()) {
+        this.world.log[0] += ` ${this.name} hit ${actor.name}.`;
+      }
       actor.weaken(damage);
       this.turnsSinceAttack = 0;
       return;
@@ -90,6 +93,9 @@ export default class Eagle extends Actor {
     ) {
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage = ~~(damage / (this.hasFeather ? 2 : 1));
+      if (this.isVisible()) {
+        this.world.log[0] += ` ${this.name} hit you.`;
+      }
       this.world.hero.weaken(damage);
       this.turnsSinceAttack = 0;
       return;

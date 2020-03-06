@@ -105,17 +105,14 @@ export default class Actor {
   }
 
   /**
-   * Decrease the actor's health with the specified value and kill him if
-   * needed.
+   * Returns true if the actor in is the current FOV of the hero.
    *
-   * @param {number} value
+   * @return {boolean}
    * @memberof Actor
    */
-  weaken(value) {
-    this.health -= value;
-    if (this.health < 1) {
-      this.kill();
-    }
+  isVisible() {
+    return this.world.hero.fov.has(`${this.x},${this.y}`) &&
+      this.z === this.world.hero.z;
   }
 
   /**
@@ -125,15 +122,19 @@ export default class Actor {
    * @param {number} value
    * @memberof Actor
    */
-  weakenAndLog(value) {
+  weaken(value) {
     this.health -= value;
-    this.world.log[0] += ` ${this.name} lost ${value} health `;
+    let log = ` ${this.name} lost ${value}♥`;
     if (this.poisonRemained) {
-      this.world.log[0] += 'due to poison';
+      log += ' due to the poison';
     }
     if (this.health < 1) {
-      this.world.log[0] += 'and died ';
+      log += ' and died';
       this.kill();
+    }
+    log += '.';
+    if (this.isVisible() && (this.animal || this === this.world.hero)) {
+      this.world.log[0] += log;
     }
   }
 
@@ -226,6 +227,9 @@ export default class Actor {
       }
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage = ~~(damage / (this.hasFeather ? 2 : 1));
+      if (this.isVisible()) {
+        this.world.log[0] += ` ${this.name} hit ${actor.name}.`;
+      }
       actor.weaken(damage);
       return;
     }
@@ -234,6 +238,9 @@ export default class Actor {
     ) {
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage = ~~(damage / (this.hasFeather ? 2 : 1));
+      if (this.isVisible()) {
+        this.world.log[0] += ` ${this.name} hit you.`;
+      }
       this.world.hero.weaken(damage);
       return;
     }
