@@ -21,7 +21,7 @@ export default class Dog extends Actor {
     this.name = 'Dog';
     this.health = 4;
     this.damage = 2;
-    this.speed = 5;
+    this.speed = 4;
     this.animal = true;
     this.world.scheduler.add(this, true);
   }

@@ -23,7 +23,7 @@ export default class Rival extends Actor {
     this.char = char;
     this.name = name;
     this.health = 5;
-    this.damage = 1;
+    this.damage = 0;
     this.speed = 3;
     this.hasPistol = false;
     this.hasFeather = false;

@@ -23,7 +23,7 @@ export default class Eagle extends Actor {
     this.name = 'Eagle';
     this.health = 2;
     this.damage = 1;
-    this.speed = 5;
+    this.speed = 4;
     this.turnsSinceAttack = 0;
     this.animal = true;
     this.world.scheduler.add(this, true);
