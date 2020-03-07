@@ -77,11 +77,13 @@ export default class Monkey extends Actor {
     this.world.actors.splice(this.world.actors.indexOf(this), 1);
     this.world.scheduler.remove(this);
     if (this.hasPistol) {
-      this.world.items.set(floors.pop(), '⌐');
+      this.world.items.set(this.position, '⌐');
+    } else if (this.hasWhip) {
+      this.world.items.set(this.position, '␦');
     } else if (this.medkits > 0) {
-      this.world.items.set(floors.pop(), '+');
+      this.world.items.set(this.position, '+');
     } else if (this.bullets > 5) {
-      this.world.items.set(floors.pop(), '⁍');
+      this.world.items.set(this.position, '⊠');
     }
   }
 }

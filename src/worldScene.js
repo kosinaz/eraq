@@ -120,6 +120,8 @@ export default class WorldScene extends Scene {
     bg = null;
     if (this.world.hero.hasPistol) {
       this.game.display.draw(26, 25, '⌐', this.game.tiled ? color : null);
+    } else if (this.world.hero.hasWhip) {
+      this.game.display.draw(26, 25, '␦', this.game.tiled ? color : null);
     }
     if (this.world.hero.bullets > 0) {
       for (let i = 0; i < ((this.world.hero.bullets % 6) || 6); i += 1) {
@@ -223,6 +225,7 @@ export default class WorldScene extends Scene {
       if (actor &&
           this.world.hero.hasPistol &&
           this.world.hero.bullets > 0 &&
+          this.world.hero.fov.has(`${this.eventX},${this.eventY}`) &&
           (Math.abs(this.world.hero.x - this.eventX) > 1 ||
           Math.abs(this.world.hero.y - this.eventY) > 1)
       ) {

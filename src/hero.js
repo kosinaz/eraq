@@ -103,6 +103,11 @@ export default class Hero extends Actor {
           this.world.items.delete(this.position);
           this.medkits += 1;
           this.world.log.unshift(` You picked up 1+.`);
+        } else if (char === '␦' && !this.hasWhip && !this.hasPistol) {
+          this.world.items.delete(this.position);
+          this.hasWhip = true;
+          this.damage = 2;
+          this.world.log.unshift(` You picked up a whip.`);
         } else if (char === '⊠') {
           this.world.items.delete(this.position);
           const bullets = RNG.getUniformInt(1, 6);

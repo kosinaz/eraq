@@ -76,6 +76,10 @@ export default class Rival extends Actor {
         this.world.items.delete(this.position);
         this.medkits += 1;
         // this.world.log.unshift(` you picked up a medkit `);
+      } else if (char === '␦' && !this.hasWhip && !this.hasPistol) {
+        this.world.items.delete(this.position);
+        this.hasWhip = true;
+        this.damage = 2;
       } else if (char === '⊠') {
         this.world.items.delete(this.position);
         const bullets = RNG.getUniformInt(2, 6);
@@ -166,7 +170,7 @@ export default class Rival extends Actor {
       this.world.log[0] += ' You heard a shot.';
     }
     actor.weaken(damage);
-    this.bullets -= 1;
+    // this.bullets -= 1;
     this.target = null;
   }
 
@@ -180,10 +184,12 @@ export default class Rival extends Actor {
     this.world.scheduler.remove(this);
     if (this.hasPistol) {
       this.world.items.set(this.position, '⌐');
+    } else if (this.hasWhip) {
+      this.world.items.set(this.position, '␦');
     } else if (this.medkits > 0) {
       this.world.items.set(this.position, '+');
     } else if (this.bullets > 5) {
-      this.world.items.set(this.position, '⁍');
+      this.world.items.set(this.position, '⊠');
     }
   }
 }

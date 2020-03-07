@@ -60,10 +60,13 @@ export default class World {
           this.map.set(`${x},${y},0`, RNG.getItem(['̬ ', 'ˬ', '˯']));
         }
       } else {
-        if (value && RNG.getUniformInt(0, 2)) {
-          this.map.set(`${x},${y},0`, RNG.getItem(['♣', '♠']));
+        if (value) {
+          this.map.set(`${x},${y},0`, RNG.getItem(['♣', '♠', '̬ ']));
         } else {
           this.map.set(`${x},${y},0`, RNG.getItem(['̬ ', 'ˬ', '˯']));
+          if (!RNG.getUniformInt(0, 50)) {
+            this.items.set(`${x},${y},0`, RNG.getItem(['␦', '⊠', '+']));
+          }
         }
       }
     });
@@ -119,16 +122,20 @@ export default class World {
         this.items.set(floors.pop(), '+');
       }
       if (floors.length) {
-        this.items.set(floors.pop(), '+');
+        this.items.set(floors.pop(), '⌐');
       }
       if (floors.length) {
-        this.items.set(floors.pop(), RNG.getItem(['⊠', '⌐']));
+        this.items.set(floors.pop(), '␦');
+      }
+      if (floors.length) {
+        this.items.set(floors.pop(), RNG.getItem(['⊠', '+']));
       }
       const arena = new Arena(13, 11);
       arena.create((x, y, value) => {
         if (value) {
           this.map.set(`${x + 20},${y + 7},8`, '#');
           this.map.set(`${x + 20},${y + 7},0`, x % 2 || y % 2 ? '∙' : '#');
+          this.items.delete(`${x + 20},${y + 7},0`);
         } else {
           this.map.set(`${x + 20},${y + 7},8`, '•');
           this.map.set(`${x + 20},${y + 7},0`, '∙');
@@ -164,16 +171,6 @@ export default class World {
     this.map.set(spawns[7], '˯');
     this.actors.push(new Boss(this, `26,14,8`));
     this.map.set(`${this.downs[0][0]},${this.downs[0][1]},0`, '>');
-    // this.items.set(`14,12,0`, '+');
-    // this.items.set(`15,12,0`, '+');
-    // this.items.set(`16,12,0`, '⌐');
-    // this.items.set(`17,12,0`, '⊠');
-    // // this.items.set(`26,8,8`, '⌐');
-    // // this.items.set(`26,9,8`, '⊠');
-    // this.map.set(`14,12,0`, '˯');
-    // this.map.set(`15,12,0`, '˯');
-    // this.map.set(`16,12,0`, '˯');
-    // this.map.set(`17,12,0`, '˯');
     this.engine.start();
   }
 
