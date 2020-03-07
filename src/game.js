@@ -14,9 +14,11 @@ import FailScene from './failScene.js';
 export default class Game {
 
 }
-Game.tiled = false;
+Game.tiled = true;
 const tileset = document.createElement('img');
 tileset.src = './images/tiles.png';
+const menuimage = document.createElement('img');
+menuimage.src = './images/menu.png';
 Game.rectOptions = {
   layout: 'rect',
   width: 52,
@@ -24,6 +26,35 @@ Game.rectOptions = {
   fontSize: 24,
   fontFamily: 'monospace',
   forceSquareRatio: true,
+};
+Game.menuOptions = {
+  layout: 'tile-gl',
+  tileWidth: 640,
+  tileHeight: 80,
+  tileSet: menuimage,
+  tileMap: {
+    'a': [0, 0],
+    'b': [0, 80],
+    'c': [0, 160],
+    'd': [0, 240],
+    'e': [0, 320],
+    'f': [0, 400],
+    'g': [0, 480],
+    'h': [0, 560],
+    'i': [0, 640],
+    'j': [640, 0],
+    'k': [640, 80],
+    'l': [640, 160],
+    'm': [640, 240],
+    'n': [640, 320],
+    'o': [640, 400],
+    'p': [640, 480],
+    'q': [640, 560],
+    'r': [640, 640],
+    '➧': [0, 720],
+  },
+  width: 2,
+  height: 9,
 };
 Game.tileOptions = {
   layout: 'tile-gl',
@@ -192,6 +223,6 @@ Game.creditsScene = new CreditsScene(Game);
 Game.winScene = new WinScene(Game);
 Game.failScene = new FailScene(Game);
 Game.menuScene = new MenuScene(Game);
-tileset.onload = function() {
+menuimage.onload = function() {
   Game.menuScene.start();
 };

@@ -23,13 +23,8 @@ export default class Scene {
    */
   start(style) {
     this.game.display.clear();
-    if (style.layout === 'tile-gl') {
-      this.game.tiled = true;
-      this.game.display.setOptions(this.game.tileOptions);
-    } else {
-      this.game.tiled = false;
-      this.game.display.setOptions(style);
-    }
+    this.game.tiled = style.layout === 'tile-gl';
+    this.game.display.setOptions(style);
     document.body.removeChild(this.game.canvas);
     this.game.canvas = this.game.display.getContainer();
     document.body.appendChild(this.game.canvas);
