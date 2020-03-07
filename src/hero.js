@@ -137,6 +137,44 @@ export default class Hero extends Actor {
         this.world.log.unshift(
             ` You went down to level ${this.world.hero.z}.`,
         );
+      } else if (char === '𝔠' &&
+        this.world.switched === this.world.animalOrder.indexOf('crocodile')) {
+        this.world.switched += 1;
+        this.world.map.set(this.position, '𝕮');
+        this.world.log.unshift(' You activated the crocodile symbol!');
+      } else if (char === '𝔡' &&
+        this.world.switched === this.world.animalOrder.indexOf('dog')) {
+        this.world.switched += 1;
+        this.world.map.set(this.position, '𝔇');
+        this.world.log.unshift(' You activated the dog symbol!');
+      } else if (char === '𝔰' &&
+        this.world.switched === this.world.animalOrder.indexOf('snake')) {
+        this.world.switched += 1;
+        this.world.map.set(this.position, '𝔖');
+        this.world.log.unshift(' You activated the snake symbol!');
+      } else if (char === '𝔢' &&
+        this.world.switched === this.world.animalOrder.indexOf('eagle')) {
+        this.world.switched += 1;
+        this.world.map.set(this.position, '𝔈');
+        this.world.log.unshift(' You activated the eagle symbol!');
+      } else if (char === '𝔧' &&
+        this.world.switched === this.world.animalOrder.indexOf('jaguar')) {
+        this.world.switched += 1;
+        this.world.map.set(this.position, '𝔍');
+        this.world.log.unshift(' You activated the jaguar symbol!');
+      } else if (char === '𝔩' &&
+        this.world.switched === this.world.animalOrder.indexOf('lizard')) {
+        this.world.switched += 1;
+        this.world.map.set(this.position, '𝔏');
+        this.world.log.unshift(' You activated the lizard symbol!');
+      } else if (char === '𝔪' &&
+        this.world.switched === this.world.animalOrder.indexOf('monkey')) {
+        this.world.switched += 1;
+        this.world.map.set(this.position, '𝔐');
+        this.world.log.unshift(' You activated the monkey symbol!');
+      }
+      if (this.world.switched === 7) {
+        this.world.log[0] += (' All symbols are activated!');
       }
     }
     this.ps.compute(this.x, this.y, 11, (x, y) => {

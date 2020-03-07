@@ -48,6 +48,7 @@ export default class World {
     this.downs = [[26, 12]];
     this.actors = [];
     this.rivals = 7;
+    this.switched = 0;
     this.animalOrder = RNG.shuffle(
         ['snake', 'crocodile', 'dog', 'jaguar', 'monkey', 'lizard', 'eagle'],
     );
@@ -93,19 +94,39 @@ export default class World {
         if (!floors.length) {
           break;
         }
-        if (this.animalOrder[z] === 'snake') {
+        if (this.animalOrder[z - 1] === 'snake') {
+          this.map.set(floors.pop(), '𝔰');
+        } else if (this.animalOrder[z - 1] === 'crocodile') {
+          this.map.set(floors.pop(), '𝔠');
+        } else if (this.animalOrder[z - 1] === 'dog') {
+          this.map.set(floors.pop(), '𝔡');
+        } else if (this.animalOrder[z - 1] === 'jaguar') {
+          this.map.set(floors.pop(), '𝔧');
+        } else if (this.animalOrder[z - 1] === 'monkey') {
+          this.map.set(floors.pop(), '𝔪');
+        } else if (this.animalOrder[z - 1] === 'lizard') {
+          this.map.set(floors.pop(), '𝔩');
+        } else if (this.animalOrder[z - 1] === 'eagle') {
+          this.map.set(floors.pop(), '𝔢');
+        }
+      }
+      for (let i = 0; i < 3; i += 1) {
+        if (!floors.length) {
+          break;
+        }
+        if (this.animalOrder[z - 1] === 'snake') {
           this.actors.push(new Snake(this, floors.pop()));
-        } else if (this.animalOrder[z] === 'crocodile') {
+        } else if (this.animalOrder[z - 1] === 'crocodile') {
           this.actors.push(new Crocodile(this, floors.pop()));
-        } else if (this.animalOrder[z] === 'dog') {
+        } else if (this.animalOrder[z - 1] === 'dog') {
           this.actors.push(new Dog(this, floors.pop()));
-        } else if (this.animalOrder[z] === 'jaguar') {
+        } else if (this.animalOrder[z - 1] === 'jaguar') {
           this.actors.push(new Jaguar(this, floors.pop()));
-        } else if (this.animalOrder[z] === 'monkey') {
+        } else if (this.animalOrder[z - 1] === 'monkey') {
           this.actors.push(new Monkey(this, floors.pop()));
-        } else if (this.animalOrder[z] === 'lizard') {
+        } else if (this.animalOrder[z - 1] === 'lizard') {
           this.actors.push(new Lizard(this, floors.pop()));
-        } else if (this.animalOrder[z] === 'eagle') {
+        } else if (this.animalOrder[z - 1] === 'eagle') {
           this.actors.push(new Eagle(this, floors.pop()));
         }
       }
@@ -137,10 +158,17 @@ export default class World {
           this.map.set(`${x + 20},${y + 7},0`, x % 2 || y % 2 ? '∙' : '#');
           this.items.delete(`${x + 20},${y + 7},0`);
         } else {
-          this.map.set(`${x + 20},${y + 7},8`, '•');
+          this.map.set(`${x + 20},${y + 7},8`, '∙');
           this.map.set(`${x + 20},${y + 7},0`, '∙');
         }
       });
+      this.map.set(`22,9,8`, '𝔰');
+      this.map.set(`30,9,8`, '𝔠');
+      this.map.set(`22,12,8`, '𝔡');
+      this.map.set(`30,12,8`, '𝔧');
+      this.map.set(`22,15,8`, '𝔪');
+      this.map.set(`26,15,8`, '𝔩');
+      this.map.set(`30,15,8`, '𝔢');
       this.ups[z] = rooms[0].getCenter();
       this.downs[z] = rooms[rooms.length - 1].getCenter();
       this.map.set(`${this.ups[z][0]},${this.ups[z][1]},${z}`, '<');
@@ -169,7 +197,7 @@ export default class World {
     }
     this.hero = new Hero(this, spawns[7]);
     this.map.set(spawns[7], '˯');
-    this.actors.push(new Boss(this, `26,14,8`));
+    this.actors.push(new Boss(this, `26,16,8`));
     this.map.set(`${this.downs[0][0]},${this.downs[0][1]},0`, '>');
     this.engine.start();
   }

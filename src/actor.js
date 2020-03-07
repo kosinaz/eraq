@@ -130,16 +130,19 @@ export default class Actor {
     }
     if (this.health < 1) {
       log += ' and died';
-      this.kill();
       if (this.rival) {
         this.world.log[0] +=
           ` ${this.name} died! ${--this.world.rivals} rivals left.`;
+        this.kill();
         return;
       }
     }
     log += '.';
     if (this.isVisible()) {
       this.world.log[0] += log;
+    }
+    if (this.health < 1) {
+      this.kill();
     }
   }
 
