@@ -55,6 +55,7 @@ Game.menuOptions = {
   },
   width: 2,
   height: 9,
+  tileColorize: false,
 };
 Game.tileOptions = {
   layout: 'tile-gl',

@@ -184,7 +184,7 @@ export default class WorldScene extends Scene {
           this.world.hero.medkits > 0 &&
           this.world.hero.health < 10) {
         this.world.hero.medkits -= 1;
-        this.world.hero.health += 1;
+        this.world.hero.health = 10;
         this.world.log.unshift(` You used 1+.`);
         this.world.engine.unlock();
         return;
@@ -212,7 +212,7 @@ export default class WorldScene extends Scene {
         }
         if (this.world.hero.medkits > 0 && this.world.hero.health < 10) {
           this.world.hero.medkits -= 1;
-          this.world.hero.health += 1;
+          this.world.hero.health = 10;
           this.world.log.unshift(` You used 1+.`);
           this.world.engine.unlock();
         }
@@ -275,7 +275,7 @@ export default class WorldScene extends Scene {
         }
         if (this.world.hero.medkits > 0 && this.world.hero.health < 10) {
           this.world.hero.medkits -= 1;
-          this.world.hero.health += 1;
+          this.world.hero.health = 10;
           this.world.log.unshift(` You used 1+.`);
           this.world.engine.unlock();
         }

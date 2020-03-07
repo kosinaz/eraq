@@ -44,7 +44,7 @@ export default class Hero extends Actor {
   act() {
     this.turns += 1;
     if (this.poisonRemained) {
-      this.weakenAndLog(1);
+      this.weaken(1);
       this.poisonRemained -= 1;
     }
     this.fov = new Set();
