@@ -103,4 +103,18 @@ export default class Eagle extends Actor {
     this.x = this.path[1][0];
     this.y = this.path[1][1];
   }
+  /**
+   * Kills the actor.
+   *
+   * @param {boolean} hero
+   * @memberof Actor
+   */
+  kill(hero) {
+    super.kill();
+    if (!hero) {
+      return;
+    }
+    this.world.stats.kills.eagle += 1;
+    this.world.stats.point += 8;
+  }
 }

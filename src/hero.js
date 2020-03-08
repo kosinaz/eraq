@@ -43,6 +43,7 @@ export default class Hero extends Actor {
    */
   act() {
     this.turns += 1;
+    this.world.stats.turn += 1;
     if (this.poisonRemained) {
       this.weaken(1);
       this.poisonRemained -= 1;
@@ -87,7 +88,7 @@ export default class Hero extends Actor {
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage *= this.hasFeather ? 2 : 1;
       this.world.log.unshift(` You hit ${actor.name}.`);
-      actor.weaken(damage);
+      actor.weaken(damage, true);
       this.target = null;
     } else {
       this.x = this.path[1][0];
@@ -96,25 +97,37 @@ export default class Hero extends Actor {
       if (char) {
         if (char === '⤁') {
           this.world.items.delete(this.position);
+          this.world.stats.items.amulet += 1;
+          this.world.stats.point += 1000;
           this.hasFeather = true;
           this.speed = 6;
           this.world.log.unshift(` YOU HAVE THE GOLDEN FEATHER!`);
         } else if (char === '+' && this.medkits < 5) {
           this.world.items.delete(this.position);
+          this.world.stats.items.medkit += 1;
+          this.world.stats.point += 1;
           this.medkits += 1;
           this.world.log.unshift(` You picked up 1+.`);
         } else if (char === '␦' && !this.hasWhip && !this.hasPistol) {
           this.world.items.delete(this.position);
+          this.world.stats.items.medkit += 1;
+          this.world.stats.point += 1;
           this.hasWhip = true;
           this.damage = 2;
           this.world.log.unshift(` You picked up a whip.`);
         } else if (char === '⊠') {
           this.world.items.delete(this.position);
+          this.world.stats.items.whip += 1;
+          this.world.stats.items.bullet += 1;
+          this.world.stats.point += 2;
           const bullets = RNG.getUniformInt(1, 6);
           this.bullets += bullets;
           this.world.log.unshift(` You picked up ${bullets}⁍.`);
         } else if (char === '⌐') {
           this.world.items.delete(this.position);
+          this.world.stats.items.pistol += 1;
+          this.world.stats.items.bullet += 1;
+          this.world.stats.point += 2;
           const bullets = RNG.getUniformInt(1, 6);
           this.hasPistol = true;
           this.damage = 3;
@@ -132,6 +145,7 @@ export default class Hero extends Actor {
         );
       } else if (char === '>') {
         this.z += 1;
+        this.world.stats.level = this.z;
         this.x = this.world.ups[this.z][0];
         this.y = this.world.ups[this.z][1];
         if (this.world.hero.z === 1) {
@@ -217,7 +231,7 @@ export default class Hero extends Actor {
     let damage = this.damage + RNG.getUniformInt(0, 1);
     damage *= this.hasFeather ? 2 : 1;
     this.world.log.unshift(` You shot ${actor.name}.`);
-    actor.weaken(damage);
+    actor.weaken(damage, true);
     this.bullets -= 1;
     this.target = null;
     this.world.engine.unlock();

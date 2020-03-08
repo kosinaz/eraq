@@ -120,9 +120,10 @@ export default class Actor {
    * needed.
    *
    * @param {number} value
+   * @param {boolean} hero
    * @memberof Actor
    */
-  weaken(value) {
+  weaken(value, hero) {
     this.health -= value;
     let log = ` ${this.name} lost ${value}♥`;
     if (this.poisonRemained) {
@@ -133,7 +134,7 @@ export default class Actor {
       if (this.rival) {
         this.world.log[0] +=
           ` ${this.name} died! ${--this.world.rivals} rivals left.`;
-        this.kill();
+        this.kill(hero);
         return;
       }
     }
@@ -142,7 +143,7 @@ export default class Actor {
       this.world.log[0] += log;
     }
     if (this.health < 1) {
-      this.kill();
+      this.kill(hero);
     }
   }
 
@@ -280,9 +281,10 @@ export default class Actor {
   /**
    * Kills the actor.
    *
+   * @param {boolean} hero
    * @memberof Actor
    */
-  kill() {
+  kill(hero) {
     this.world.actors.splice(this.world.actors.indexOf(this), 1);
     this.world.scheduler.remove(this);
   }

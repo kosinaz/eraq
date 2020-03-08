@@ -49,6 +49,33 @@ export default class World {
     this.actors = [];
     this.rivals = 7;
     this.switched = 0;
+    this.stats = {
+      kills: {
+        rival: 0,
+        tarantula: 0,
+        bat: 0,
+        snake: 0,
+        crocodile: 0,
+        dog: 0,
+        jaguar: 0,
+        monkey: 0,
+        lizard: 0,
+        eagle: 0,
+        boss: 0,
+      },
+      items: {
+        whip: 0,
+        pistol: 0,
+        bullet: 0,
+        medkit: 0,
+        amulet: 0,
+      },
+      turn: 0,
+      level: 0,
+      point: 0,
+      escape: 0,
+    };
+    this.scene.game.stats = this.stats;
     this.animalOrder = RNG.shuffle(
         ['snake', 'crocodile', 'dog', 'jaguar', 'monkey', 'lizard', 'eagle'],
     );

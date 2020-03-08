@@ -39,4 +39,18 @@ export default class Bat extends Actor {
     ];
     this.moveToTarget();
   }
+  /**
+   * Kills the actor.
+   *
+   * @param {boolean} hero
+   * @memberof Bat
+   */
+  kill(hero) {
+    super.kill();
+    if (!hero) {
+      return;
+    }
+    this.world.stats.kills.bat += 1;
+    this.world.stats.point += 6;
+  }
 }

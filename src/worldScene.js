@@ -31,6 +31,9 @@ export default class WorldScene extends Scene {
   update() {
     this.game.display.clear();
     if (this.world.hero.hasFeather && this.world.hero.z === 0) {
+      this.world.stats.escape += 1;
+      this.world.stats.point += 1000;
+      this.game.mortem = this.world.log;
       this.switchTo(this.game.winScene);
       return;
     }

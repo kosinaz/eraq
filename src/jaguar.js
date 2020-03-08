@@ -38,4 +38,18 @@ export default class Jaguar extends Actor {
       this.moveToTarget();
     }
   }
+  /**
+   * Kills the actor.
+   *
+   * @param {boolean} hero
+   * @memberof Actor
+   */
+  kill(hero) {
+    super.kill();
+    if (!hero) {
+      return;
+    }
+    this.world.stats.kills.jaguar += 1;
+    this.world.stats.point += 32;
+  }
 }

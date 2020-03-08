@@ -71,11 +71,11 @@ export default class Monkey extends Actor {
   /**
    * Kills the actor.
    *
+   * @param {boolean} hero
    * @memberof Actor
    */
-  kill() {
-    this.world.actors.splice(this.world.actors.indexOf(this), 1);
-    this.world.scheduler.remove(this);
+  kill(hero) {
+    super.kill();
     if (this.hasPistol) {
       this.world.items.set(this.position, '⌐');
     } else if (this.hasWhip) {
@@ -85,5 +85,10 @@ export default class Monkey extends Actor {
     } else if (this.bullets > 5) {
       this.world.items.set(this.position, '⊠');
     }
+    if (!hero) {
+      return;
+    }
+    this.world.stats.kills.monkey += 1;
+    this.world.stats.point += 12;
   }
 }

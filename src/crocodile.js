@@ -25,4 +25,18 @@ export default class Crocodile extends Actor {
     this.animal = true;
     this.world.scheduler.add(this, true);
   }
+  /**
+   * Kills the actor.
+   *
+   * @param {boolean} hero
+   * @memberof Actor
+   */
+  kill(hero) {
+    super.kill();
+    if (!hero) {
+      return;
+    }
+    this.world.stats.kills.crocodile += 1;
+    this.world.stats.point += 40;
+  }
 }
