@@ -92,7 +92,7 @@ export default class WorldScene extends Scene {
     });
     let color = 'transparent';
     let bg = null;
-    if (this.mouseX === 1 && this.mouseY === 26) {
+    if (this.mouseX === 1 && this.mouseY === 25) {
       if (this.game.tiled) {
         color = 'rgba(255, 255, 255, 0.25)';
       } else {
@@ -113,8 +113,20 @@ export default class WorldScene extends Scene {
           '♡♡♡♡♡♡♡♡♡♡'.substr(this.world.hero.health),
       );
     }
+    color = 'transparent';
+    bg = null;
+    if (this.mouseX > 12 && this.mouseX < 18 && this.mouseY === 25) {
+      if (this.game.tiled) {
+        color = 'rgba(255, 255, 255, 0.25)';
+      } else {
+        bg = '#aaa';
+      }
+    }
     this.game.display.drawText(
-        13, 25, '+++++'.substr(0, this.world.hero.medkits),
+        13,
+        25,
+        '+++++'.substr(0, this.world.hero.medkits),
+        this.game.tiled ? color : null,
     );
     color = 'transparent';
     bg = null;
@@ -131,7 +143,24 @@ export default class WorldScene extends Scene {
         this.game.display.draw(27 + i, 25, '⊠', this.game.tiled ? color : null);
       }
     }
-    if (this.mouseX === 50 && this.mouseY === 25) {
+    color = 'transparent';
+    bg = null;
+    if (this.mouseX === 48 && this.mouseY === 25) {
+      if (this.game.tiled) {
+        color = 'rgba(255, 255, 255, 0.25)';
+      } else {
+        bg = '#aaa';
+      }
+    }
+    this.game.display.draw(
+        48,
+        25,
+        this.game.soundmuted ? '🕨' : '🕪',
+        this.game.tiled ? color : null, bg,
+    );
+    color = 'transparent';
+    bg = null;
+    if (this.mouseX === 49 && this.mouseY === 25) {
       if (this.game.tiled) {
         color = 'rgba(255, 255, 255, 0.25)';
       } else {
@@ -141,15 +170,19 @@ export default class WorldScene extends Scene {
     this.game.display.draw(
         49,
         25,
-        this.game.soundmuted ? '🕨' : '🕪',
-        this.game.tiled ? color : null, bg,
-    );
-    this.game.display.draw(
-        50,
-        25,
         this.game.music.muted ? '♩' : '♬',
         this.game.tiled ? color : null, bg,
     );
+    color = 'transparent';
+    bg = null;
+    if (this.mouseX === 50 && this.mouseY === 25) {
+      if (this.game.tiled) {
+        color = 'rgba(255, 255, 255, 0.25)';
+      } else {
+        bg = '#aaa';
+      }
+    }
+    this.game.display.draw(50, 25, '☒', this.game.tiled ? color : null, bg);
     this.game.display.drawText(0, 26, this.world.log[0], null, 50);
   }
 
@@ -170,14 +203,18 @@ export default class WorldScene extends Scene {
       this.update();
       return;
     } else if (event.type === 'mousedown') {
-      if (this.eventX === 49 && this.eventY === 25) {
+      if (this.eventX === 48 && this.eventY === 25) {
         this.game.switchsound();
         this.update();
         return;
       }
-      if (this.eventX === 50 && this.eventY === 25) {
+      if (this.eventX === 49 && this.eventY === 25) {
         this.game.music.muted = !this.game.music.muted;
         this.update();
+        return;
+      }
+      if (this.eventX === 50 && this.eventY === 25) {
+        this.switchTo(this.game.menuScene);
         return;
       }
       if (this.eventX === 1 && this.eventY === 25) {

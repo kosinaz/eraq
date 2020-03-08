@@ -60,6 +60,10 @@ export default class Scene {
         this.game.music.muted = !this.game.music.muted;
         this.update();
         return;
+      } else if (event.keyCode === 78) {
+        this.game.switchsound();
+        this.update();
+        return;
       }
     }
   }

@@ -48,15 +48,15 @@ export default class HelpScene extends Scene {
     );
     this.game.display.drawText(
         2, 18, ' Heal yourself with left click on your character or on the' +
-        ' heart or medkit symbols on the HUD or with the Enter key',
+        ' heart or medkit symbols or with the Enter key',
     );
     this.game.display.drawText(
         2, 21, ' Set console or tile-based display with left click on the ' +
         'symbol of your character on the HUD or with the T key',
     );
     this.game.display.drawText(
-        2, 24, ' Mute or unmute the music with left click on the music ' +
-        'symbol on the HUD or with the M key',
+        2, 24, ' Mute or unmute the music or sound with left click on the' +
+        ' music or sound symbol or with the M or N key',
     );
     this.game.display.drawText(2, 28, '➧Back');
   }
