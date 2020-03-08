@@ -114,6 +114,7 @@ export default class Eagle extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.eaglesound.play();
     this.world.stats.kills.eagle += 1;
     this.world.stats.point += 8;
   }

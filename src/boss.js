@@ -39,6 +39,7 @@ export default class Boss extends Actor {
       this.world.log[0] += (' The Doubleheaded snake got resurrected!');
     } else {
       super.kill();
+      this.world.scene.game.snakesound.play();
       this.world.stats.kills.boss += 1;
       this.world.stats.point += 420;
       this.world.items.set(`26,11,8`, '⤁');

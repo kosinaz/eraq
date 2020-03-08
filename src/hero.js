@@ -27,6 +27,7 @@ export default class Hero extends Actor {
     this.damage = 1;
     this.speed = 3;
     this.hasPistol = false;
+    this.hasWhip = false;
     this.hasFeather = false;
     this.medkits = 0;
     this.bullets = 0;
@@ -88,6 +89,11 @@ export default class Hero extends Actor {
       let damage = this.damage + RNG.getUniformInt(0, 1);
       damage *= this.hasFeather ? 2 : 1;
       this.world.log.unshift(` You hit ${actor.name}.`);
+      if (this.hasWhip) {
+        this.world.scene.game.whipsound.play();
+      } else {
+        this.world.scene.game.punchsound.play();
+      }
       actor.weaken(damage, true);
       this.target = null;
     } else {
@@ -231,6 +237,7 @@ export default class Hero extends Actor {
     let damage = this.damage + RNG.getUniformInt(0, 1);
     damage *= this.hasFeather ? 2 : 1;
     this.world.log.unshift(` You shot ${actor.name}.`);
+    this.world.scene.game.pistolsound.play();
     actor.weaken(damage, true);
     this.bullets -= 1;
     this.target = null;

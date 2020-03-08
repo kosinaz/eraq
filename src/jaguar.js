@@ -49,6 +49,7 @@ export default class Jaguar extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.jaguarsound.play();
     this.world.stats.kills.jaguar += 1;
     this.world.stats.point += 32;
   }

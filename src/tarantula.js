@@ -49,6 +49,7 @@ export default class Tarantula extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.tarantulasound.play();
     this.world.stats.kills.tarantula += 1;
     this.world.stats.point += 2;
   }

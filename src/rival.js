@@ -194,6 +194,7 @@ export default class Rival extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.rivalsound.play();
     this.world.stats.kills.rival += 1;
     this.world.stats.point += 50;
   }

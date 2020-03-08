@@ -32,7 +32,7 @@ export default class MenuScene extends Scene {
     this.game.display.draw(1, 5, 'o');
     this.game.display.draw(1, 6, 'p');
     this.game.display.draw(1, 7, 'q');
-    this.game.display.draw(1, 8, this.game.music.muted ? ['r', '🕨'] : 'r');
+    this.game.display.draw(1, 8, this.game.music.muted ? ['r', '♩'] : 'r');
     this.selected = 0;
   }
 
@@ -95,6 +95,6 @@ export default class MenuScene extends Scene {
    * @memberof WorldScene
    */
   update() {
-    this.game.display.draw(1, 8, this.game.music.muted ? ['r', '🕨'] : 'r');
+    this.game.display.draw(1, 8, this.game.music.muted ? ['r', '♩'] : 'r');
   }
 }

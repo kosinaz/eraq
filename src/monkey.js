@@ -88,6 +88,7 @@ export default class Monkey extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.monkeysound.play();
     this.world.stats.kills.monkey += 1;
     this.world.stats.point += 12;
   }

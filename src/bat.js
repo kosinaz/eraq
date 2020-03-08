@@ -50,6 +50,7 @@ export default class Bat extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.batsound.play();
     this.world.stats.kills.bat += 1;
     this.world.stats.point += 6;
   }

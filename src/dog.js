@@ -74,6 +74,7 @@ export default class Dog extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.dogsound.play();
     this.world.stats.kills.dog += 1;
     this.world.stats.point += 32;
   }

@@ -35,7 +35,20 @@ Game.escapemusic = new Audio('./music/Escape.mp3');
 Game.escapemusic.loop = true;
 Game.winmusic = new Audio('./music/Win.mp3');
 Game.failmusic = new Audio('./music/Fail.mp3');
+Game.rivalsound = new Audio('./sound/rival.mp3');
+Game.whipsound = new Audio('./sound/whip.mp3');
+Game.punchsound = new Audio('./sound/punch.mp3');
+Game.batsound = new Audio('./sound/bat.mp3');
+Game.monkeysound = new Audio('./sound/monkey.mp3');
+Game.tarantulasound = new Audio('./sound/tarantula.mp3');
+Game.snakesound = new Audio('./sound/snake.mp3');
+Game.crocodilesound = new Audio('./sound/crocodile.mp3');
+Game.jaguarsound = new Audio('./sound/jaguar.mp3');
+Game.dogsound = new Audio('./sound/dog.mp3');
+Game.eaglesound = new Audio('./sound/eagle.mp3');
+Game.pistolsound = new Audio('./sound/pistol.mp3');
 Game.music = Game.menumusic;
+Game.soundmuted = false;
 Game.rectOptions = {
   layout: 'rect',
   width: 52,
@@ -70,7 +83,7 @@ Game.menuOptions = {
     'q': [640, 560],
     'r': [640, 640],
     '➧': [0, 720],
-    '🕨': [640, 720],
+    '♩': [640, 720],
   },
   width: 2,
   height: 9,
@@ -146,8 +159,8 @@ Game.tileOptions = {
     '♥': [48, 96],
     '♡': [96, 96],
     '➧': [144, 96],
-    '🕪': [168, 96],
-    '🕨': [192, 96],
+    '♬': [168, 96],
+    '♩': [192, 96],
     '𝐜': [216, 96],
     '𝐞': [0, 120],
     '⌐': [24, 120],
@@ -168,6 +181,8 @@ Game.tileOptions = {
     '𝔍': [216, 144],
     '𝔏': [0, 168],
     '𝔐': [24, 168],
+    '🕪': [48, 168],
+    '🕨': [72, 168],
     ':': [216, 216],
     '.': [96, 264],
     '!': [24, 240],
@@ -287,6 +302,21 @@ Game.failScene = new FailScene(Game);
 Game.menuScene = new MenuScene(Game);
 Game.bootScene = new BootScene(Game);
 Game.mortemScene = new MortemScene(Game);
+Game.switchsound = function() {
+  Game.soundmuted = !Game.soundmuted;
+  Game.rivalsound.muted = Game.soundmuted;
+  Game.whipsound.muted = Game.soundmuted;
+  Game.punchsound.muted = Game.soundmuted;
+  Game.batsound.muted = Game.soundmuted;
+  Game.monkeysound.muted = Game.soundmuted;
+  Game.tarantulasound.muted = Game.soundmuted;
+  Game.snakesound.muted = Game.soundmuted;
+  Game.crocodilesound.muted = Game.soundmuted;
+  Game.jaguarsound.muted = Game.soundmuted;
+  Game.dogsound.muted = Game.soundmuted;
+  Game.eaglesound.muted = Game.soundmuted;
+  Game.pistolsound.muted = Game.soundmuted;
+};
 menuimage.onload = function() {
   Game.bootScene.start();
 };

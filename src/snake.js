@@ -49,6 +49,7 @@ export default class Snake extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.snakesound.play();
     this.world.stats.kills.snake += 1;
     this.world.stats.point += 4;
   }

@@ -36,6 +36,7 @@ export default class Crocodile extends Actor {
     if (!hero) {
       return;
     }
+    this.world.scene.game.crocodilesound.play();
     this.world.stats.kills.crocodile += 1;
     this.world.stats.point += 40;
   }

@@ -32,6 +32,8 @@ export default class CreditsScene extends Scene {
     this.game.display.drawText(2, 9, ' Art: by Clifford Tull (combosmooth.itch.io) Licensed under the Unlicense');
     // eslint-disable-next-line max-len
     this.game.display.drawText(2, 11, ' Music: by Elijah Fisch (www.elijahfisch.com) Licensed under the Unlicense');
+    // eslint-disable-next-line max-len
+    this.game.display.drawText(2, 13, ' Sound: by Zapsplat (www.zapsplat.com) Licensed under Zapsplat Standard License');
     this.game.display.drawText(2, 28, '➧Back');
   }
 

@@ -139,9 +139,15 @@ export default class WorldScene extends Scene {
       }
     }
     this.game.display.draw(
+        49,
+        25,
+        this.game.soundmuted ? '🕨' : '🕪',
+        this.game.tiled ? color : null, bg,
+    );
+    this.game.display.draw(
         50,
         25,
-        this.game.music.muted ? '🕨' : '🕪',
+        this.game.music.muted ? '♩' : '♬',
         this.game.tiled ? color : null, bg,
     );
     this.game.display.drawText(0, 26, this.world.log[0], null, 50);
@@ -164,6 +170,11 @@ export default class WorldScene extends Scene {
       this.update();
       return;
     } else if (event.type === 'mousedown') {
+      if (this.eventX === 49 && this.eventY === 25) {
+        this.game.switchsound();
+        this.update();
+        return;
+      }
       if (this.eventX === 50 && this.eventY === 25) {
         this.game.music.muted = !this.game.music.muted;
         this.update();
