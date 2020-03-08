@@ -19,7 +19,7 @@ export default class Jaguar extends Actor {
     super(world, position);
     this.char = '𝐣';
     this.name = 'Jaguar';
-    this.health = 6;
+    this.health = 4;
     this.damage = 2;
     this.speed = 4;
     this.animal = true;
