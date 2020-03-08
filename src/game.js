@@ -1,4 +1,5 @@
 import {Display} from '../lib/rot/index.js';
+import BootScene from './bootScene.js';
 import MenuScene from './menuScene.js';
 import WorldScene from './worldScene.js';
 import HelpScene from './helpScene.js';
@@ -205,7 +206,7 @@ Game.tileOptions = {
   tileColorize: true,
   width: 52,
   height: 30,
-  music: Game.worldmusic,
+  music: Game.menumusic,
 };
 Game.display = new Display(Game.menuOptions);
 Game.display.drawText = function(x, y, text, color, width) {
@@ -253,6 +254,7 @@ Game.creditsScene = new CreditsScene(Game);
 Game.winScene = new WinScene(Game);
 Game.failScene = new FailScene(Game);
 Game.menuScene = new MenuScene(Game);
+Game.bootScene = new BootScene(Game);
 menuimage.onload = function() {
-  Game.menuScene.start();
+  Game.bootScene.start();
 };

@@ -203,7 +203,13 @@ export default class WorldScene extends Scene {
           this.world.hero.z += 1;
           this.world.hero.x = this.world.ups[this.world.hero.z][0];
           this.world.hero.y = this.world.ups[this.world.hero.z][1];
-          if (this.world.hero.z === 8) {
+          if (this.world.hero.z === 1) {
+            const muted = this.game.music.muted;
+            this.game.music.pause();
+            this.game.music = this.game.worldmusic;
+            this.game.music.play();
+            this.game.music.muted = muted;
+          } else if (this.world.hero.z === 8) {
             const muted = this.game.music.muted;
             this.game.music.pause();
             this.game.music = this.game.bossmusic;
@@ -272,7 +278,13 @@ export default class WorldScene extends Scene {
           this.world.hero.z += 1;
           this.world.hero.x = this.world.ups[this.world.hero.z][0];
           this.world.hero.y = this.world.ups[this.world.hero.z][1];
-          if (this.world.hero.z === 8) {
+          if (this.world.hero.z === 1) {
+            const muted = this.game.music.muted;
+            this.game.music.pause();
+            this.game.music = this.game.worldmusic;
+            this.game.music.play();
+            this.game.music.muted = muted;
+          } else if (this.world.hero.z === 8) {
             const muted = this.game.music.muted;
             this.game.music.pause();
             this.game.music = this.game.bossmusic;

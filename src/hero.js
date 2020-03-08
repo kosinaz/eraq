@@ -134,7 +134,13 @@ export default class Hero extends Actor {
         this.z += 1;
         this.x = this.world.ups[this.z][0];
         this.y = this.world.ups[this.z][1];
-        if (this.world.hero.z === 8) {
+        if (this.world.hero.z === 1) {
+          const muted = this.world.scene.game.music.muted;
+          this.world.scene.game.music.pause();
+          this.world.scene.game.music = this.world.scene.game.worldmusic;
+          this.world.scene.game.music.play();
+          this.world.scene.game.music.muted = muted;
+        } else if (this.world.hero.z === 8) {
           const muted = this.world.scene.game.music.muted;
           this.world.scene.game.music.pause();
           this.world.scene.game.music = this.world.scene.game.bossmusic;

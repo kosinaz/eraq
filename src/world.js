@@ -196,6 +196,7 @@ export default class World {
       ));
     }
     this.hero = new Hero(this, spawns[7]);
+    // eslint-disable-next-line max-len
     // this.hero = new Hero(this, `${this.downs[7][0] + 1},${this.downs[7][1]},7`);
     // this.hero.health = 1000;
     // this.hero.damage = 1000;
