@@ -21,7 +21,6 @@ export default class BootScene extends Scene {
       fontSize: 24,
       fontFamily: 'monospace',
       forceSquareRatio: false,
-      music: this.game.menumusic,
     });
     this.game.display.drawText(30, 12, 'Press any key to start');
   }

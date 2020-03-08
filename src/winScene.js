@@ -9,22 +9,13 @@ import Scene from './scene.js';
  */
 export default class WinScene extends Scene {
   /**
-   * Opens the help scene.
+   * Opens the win scene.
    *
    * @memberof WinScene
    */
   start() {
-    super.start({
-      layout: 'rect',
-      width: 91,
-      height: 30,
-      fontSize: 24,
-      fontFamily: 'monospace',
-      forceSquareRatio: false,
-      music: this.game.winmusic,
-    });
-    this.game.display.drawText(33, 1, 'CONGRATULATIONS! YOU WON!');
-    this.game.display.drawText(1, 28, '➧Back to main menu');
+    super.start(this.game.winOptions);
+    this.game.display.draw(0, 0, 'a');
   }
 
   /**
@@ -37,12 +28,10 @@ export default class WinScene extends Scene {
     super.handleEvent(event);
     if (event.type === 'keydown') {
       if (event.keyCode === 13) {
-        this.switchTo(this.game.menuScene);
+        this.switchTo(this.game.mortemScene);
       }
     } else if (event.type === 'mousedown') {
-      if (this.eventX > 1 && this.eventX < 19 && this.eventY === 28) {
-        this.switchTo(this.game.menuScene);
-      }
+      this.switchTo(this.game.mortemScene);
     }
   }
 }

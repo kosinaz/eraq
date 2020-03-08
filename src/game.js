@@ -6,6 +6,7 @@ import HelpScene from './helpScene.js';
 import CreditsScene from './creditsScene.js';
 import WinScene from './winScene.js';
 import FailScene from './failScene.js';
+import MortemScene from './mortemScene.js';
 
 /**
  * Represent the game core object.
@@ -20,6 +21,8 @@ const tileset = document.createElement('img');
 tileset.src = './images/tiles.png';
 const menuimage = document.createElement('img');
 menuimage.src = './images/menu.png';
+const winimage = document.createElement('img');
+winimage.src = './images/win.png';
 Game.menumusic = new Audio('./music/Menu.mp3');
 Game.menumusic.loop = true;
 Game.worldmusic = new Audio('./music/World.mp3');
@@ -71,6 +74,19 @@ Game.menuOptions = {
   height: 9,
   tileColorize: false,
   music: Game.menumusic,
+};
+Game.winOptions = {
+  layout: 'tile-gl',
+  tileWidth: 1280,
+  tileHeight: 720,
+  tileSet: winimage,
+  tileMap: {
+    'a': [0, 0],
+  },
+  width: 1,
+  height: 1,
+  tileColorize: false,
+  music: Game.winmusic,
 };
 Game.tileOptions = {
   layout: 'tile-gl',
@@ -255,6 +271,7 @@ Game.winScene = new WinScene(Game);
 Game.failScene = new FailScene(Game);
 Game.menuScene = new MenuScene(Game);
 Game.bootScene = new BootScene(Game);
+Game.mortemScene = new MortemScene(Game);
 menuimage.onload = function() {
   Game.bootScene.start();
 };

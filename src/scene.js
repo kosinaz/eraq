@@ -28,11 +28,13 @@ export default class Scene {
     document.body.removeChild(this.game.canvas);
     this.game.canvas = this.game.display.getContainer();
     document.body.appendChild(this.game.canvas);
-    const muted = this.game.music.muted;
-    this.game.music.pause();
-    this.game.music = style.music;
-    this.game.music.play();
-    this.game.music.muted = muted;
+    if (style.music) {
+      const muted = this.game.music.muted;
+      this.game.music.pause();
+      this.game.music = style.music;
+      this.game.music.play();
+      this.game.music.muted = muted;
+    }
     window.addEventListener('keydown', this);
     window.addEventListener('mousedown', this);
     window.addEventListener('mouseup', this);
