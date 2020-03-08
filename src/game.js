@@ -19,6 +19,17 @@ const tileset = document.createElement('img');
 tileset.src = './images/tiles.png';
 const menuimage = document.createElement('img');
 menuimage.src = './images/menu.png';
+Game.menumusic = new Audio('./music/Menu.mp3');
+Game.menumusic.loop = true;
+Game.worldmusic = new Audio('./music/World.mp3');
+Game.worldmusic.loop = true;
+Game.bossmusic = new Audio('./music/Boss.mp3');
+Game.bossmusic.loop = true;
+Game.escapemusic = new Audio('./music/Escape.mp3');
+Game.escapemusic.loop = true;
+Game.winmusic = new Audio('./music/Win.mp3');
+Game.failmusic = new Audio('./music/Fail.mp3');
+Game.music = Game.menumusic;
 Game.rectOptions = {
   layout: 'rect',
   width: 52,
@@ -26,6 +37,7 @@ Game.rectOptions = {
   fontSize: 24,
   fontFamily: 'monospace',
   forceSquareRatio: true,
+  music: Game.menumusic,
 };
 Game.menuOptions = {
   layout: 'tile-gl',
@@ -52,10 +64,12 @@ Game.menuOptions = {
     'q': [640, 560],
     'r': [640, 640],
     '➧': [0, 720],
+    '🕨': [640, 720],
   },
   width: 2,
   height: 9,
   tileColorize: false,
+  music: Game.menumusic,
 };
 Game.tileOptions = {
   layout: 'tile-gl',
@@ -191,6 +205,7 @@ Game.tileOptions = {
   tileColorize: true,
   width: 52,
   height: 30,
+  music: Game.worldmusic,
 };
 Game.display = new Display(Game.menuOptions);
 Game.display.drawText = function(x, y, text, color, width) {

@@ -21,6 +21,7 @@ export default class FailScene extends Scene {
       fontSize: 24,
       fontFamily: 'monospace',
       forceSquareRatio: false,
+      music: this.game.failmusic,
     });
     this.game.display.drawText(40, 1, 'GAME OVER!');
     this.game.display.drawText(0, 3, this.game.mortem[0]);

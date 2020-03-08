@@ -17,9 +17,6 @@ export default class WorldScene extends Scene {
   start() {
     super.start(this.game.tileOptions);
     this.selected = 0;
-    this.music = new Audio('./music/.ogg');
-    this.music.loop = true;
-    this.music.play();
     this.world = new World(this);
     this.world.create();
     this.mouseX = -1;
@@ -141,7 +138,7 @@ export default class WorldScene extends Scene {
     this.game.display.draw(
         50,
         25,
-        this.music.muted ? '🕨' : '🕪',
+        this.game.music.muted ? '🕨' : '🕪',
         this.game.tiled ? color : null, bg,
     );
     this.game.display.drawText(0, 26, this.world.log[0], null, 50);
@@ -165,7 +162,7 @@ export default class WorldScene extends Scene {
       return;
     } else if (event.type === 'mousedown') {
       if (this.eventX === 50 && this.eventY === 25) {
-        this.music.muted = !this.music.muted;
+        this.game.music.muted = !this.game.music.muted;
         this.update();
         return;
       }
@@ -206,9 +203,20 @@ export default class WorldScene extends Scene {
           this.world.hero.z += 1;
           this.world.hero.x = this.world.ups[this.world.hero.z][0];
           this.world.hero.y = this.world.ups[this.world.hero.z][1];
-          this.world.log.unshift(
-              ` You went down to level ${this.world.hero.z}.`,
-          );
+          if (this.world.hero.z === 8) {
+            const muted = this.game.music.muted;
+            this.game.music.pause();
+            this.game.music = this.game.bossmusic;
+            this.game.music.play();
+            this.game.music.muted = muted;
+            this.world.log.unshift(
+                ' You see a horrible Doubleheaded snake!',
+            );
+          } else {
+            this.world.log.unshift(
+                ` You went down to level ${this.world.hero.z}.`,
+            );
+          }
           this.world.engine.unlock();
           return;
         }
@@ -237,11 +245,6 @@ export default class WorldScene extends Scene {
     } else if (event.type === 'keydown') {
       let x = this.world.hero.x;
       let y = this.world.hero.y;
-      if (event.keyCode === 77) {
-        this.music.muted = !this.music.muted;
-        this.update();
-        return;
-      }
       if (event.keyCode === 84) {
         this.game.tiled = !this.game.tiled;
         this.game.display.setOptions(
@@ -269,9 +272,20 @@ export default class WorldScene extends Scene {
           this.world.hero.z += 1;
           this.world.hero.x = this.world.ups[this.world.hero.z][0];
           this.world.hero.y = this.world.ups[this.world.hero.z][1];
-          this.world.log.unshift(
-              ` You went down to level ${this.world.hero.z}.`,
-          );
+          if (this.world.hero.z === 8) {
+            const muted = this.game.music.muted;
+            this.game.music.pause();
+            this.game.music = this.game.bossmusic;
+            this.game.music.play();
+            this.game.music.muted = muted;
+            this.world.log.unshift(
+                ' You see a horrible Doubleheaded snake!',
+            );
+          } else {
+            this.world.log.unshift(
+                ` You went down to level ${this.world.hero.z}.`,
+            );
+          }
           this.world.hero.target = null;
           this.world.engine.unlock();
           return;

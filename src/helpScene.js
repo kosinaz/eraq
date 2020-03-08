@@ -21,6 +21,7 @@ export default class HelpScene extends Scene {
       fontSize: 24,
       fontFamily: 'monospace',
       forceSquareRatio: false,
+      music: this.game.menumusic,
     });
     this.game.display.drawText(43, 1, 'Help');
     this.game.display.drawText(

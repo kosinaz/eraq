@@ -40,6 +40,12 @@ export default class Boss extends Actor {
     } else {
       super.kill();
       this.world.items.set(`26,11,8`, '⤁');
+      this.world.log[0] += (' The monster is dead! Grab the feather and run!');
+      const muted = this.world.scene.game.music.muted;
+      this.world.scene.game.music.pause();
+      this.world.scene.game.music = this.world.scene.game.escapemusic;
+      this.world.scene.game.music.play();
+      this.world.scene.game.music.muted = muted;
     }
   }
 }

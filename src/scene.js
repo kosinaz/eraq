@@ -28,6 +28,11 @@ export default class Scene {
     document.body.removeChild(this.game.canvas);
     this.game.canvas = this.game.display.getContainer();
     document.body.appendChild(this.game.canvas);
+    const muted = this.game.music.muted;
+    this.game.music.pause();
+    this.game.music = style.music;
+    this.game.music.play();
+    this.game.music.muted = muted;
     window.addEventListener('keydown', this);
     window.addEventListener('mousedown', this);
     window.addEventListener('mouseup', this);
@@ -49,6 +54,10 @@ export default class Scene {
     } else if (event.type === 'keydown') {
       if (event.keyCode > 36 && event.keyCode < 41) {
         event.preventDefault();
+      } else if (event.keyCode === 77) {
+        this.game.music.muted = !this.game.music.muted;
+        this.update();
+        return;
       }
     }
   }
@@ -65,5 +74,12 @@ export default class Scene {
     window.removeEventListener('mouseup', this);
     window.removeEventListener('mousemove', this);
     scene.start();
+  }
+  /**
+   * Redraw the world around the hero.
+   *
+   * @memberof WorldScene
+   */
+  update() {
   }
 }

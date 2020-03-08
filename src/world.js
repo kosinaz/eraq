@@ -196,6 +196,9 @@ export default class World {
       ));
     }
     this.hero = new Hero(this, spawns[7]);
+    // this.hero = new Hero(this, `${this.downs[7][0] + 1},${this.downs[7][1]},7`);
+    // this.hero.health = 1000;
+    // this.hero.damage = 1000;
     this.map.set(spawns[7], '˯');
     this.actors.push(new Boss(this, `26,16,8`));
     this.map.set(`${this.downs[0][0]},${this.downs[0][1]},0`, '>');

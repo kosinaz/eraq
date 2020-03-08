@@ -21,6 +21,7 @@ export default class WinScene extends Scene {
       fontSize: 24,
       fontFamily: 'monospace',
       forceSquareRatio: false,
+      music: this.game.winmusic,
     });
     this.game.display.drawText(33, 1, 'CONGRATULATIONS! YOU WON!');
     this.game.display.drawText(1, 28, '➧Back to main menu');

@@ -21,6 +21,7 @@ export default class CreditsScene extends Scene {
       fontSize: 24,
       fontFamily: 'monospace',
       forceSquareRatio: false,
+      music: this.game.menumusic,
     });
     this.game.display.drawText(41, 1, 'Credits');
     // eslint-disable-next-line max-len

@@ -32,7 +32,7 @@ export default class MenuScene extends Scene {
     this.game.display.draw(1, 5, 'o');
     this.game.display.draw(1, 6, 'p');
     this.game.display.draw(1, 7, 'q');
-    this.game.display.draw(1, 8, 'r');
+    this.game.display.draw(1, 8, this.game.music.muted ? ['r', '🕨'] : 'r');
     this.selected = 0;
   }
 
@@ -69,9 +69,7 @@ export default class MenuScene extends Scene {
         } else if (this.selected === 2) {
           this.switchTo(this.game.creditsScene);
         }
-      } else if (event.keyCode === 77) {
-        this.switchTo(this.game.failScene);
-      } else if (event.keyCode === 78) {
+      } else if (event.keyCode === 79) {
         this.switchTo(this.game.winScene);
       }
     } else if (event.type === 'mousedown') {
@@ -84,6 +82,19 @@ export default class MenuScene extends Scene {
           this.switchTo(this.game.creditsScene);
         }
       }
+      if (this.eventX === 1 && this.eventY === 8) {
+        this.game.music.muted = !this.game.music.muted;
+        this.update();
+      }
     }
+  }
+
+  /**
+   * Redraw the world around the hero.
+   *
+   * @memberof WorldScene
+   */
+  update() {
+    this.game.display.draw(1, 8, this.game.music.muted ? ['r', '🕨'] : 'r');
   }
 }
