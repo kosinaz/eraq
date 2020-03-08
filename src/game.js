@@ -23,6 +23,8 @@ const menuimage = document.createElement('img');
 menuimage.src = './images/menu.png';
 const winimage = document.createElement('img');
 winimage.src = './images/win.png';
+const failimage = document.createElement('img');
+failimage.src = './images/fail.png';
 Game.menumusic = new Audio('./music/Menu.mp3');
 Game.menumusic.loop = true;
 Game.worldmusic = new Audio('./music/World.mp3');
@@ -87,6 +89,19 @@ Game.winOptions = {
   height: 1,
   tileColorize: false,
   music: Game.winmusic,
+};
+Game.failOptions = {
+  layout: 'tile-gl',
+  tileWidth: 1280,
+  tileHeight: 720,
+  tileSet: failimage,
+  tileMap: {
+    'a': [0, 0],
+  },
+  width: 1,
+  height: 1,
+  tileColorize: false,
+  music: Game.failmusic,
 };
 Game.tileOptions = {
   layout: 'tile-gl',

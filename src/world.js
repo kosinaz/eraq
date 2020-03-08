@@ -15,6 +15,7 @@ import Arena from '../lib/rot/map/arena.js';
 import Digger from '../lib/rot/map/digger.js';
 import EllerMaze from '../lib/rot/map/iceymaze.js';
 import Rival from './rival.js';
+import Uniform from '../lib/rot/map/uniform.js';
 
 /**
  * Represent the ingame world.
@@ -98,7 +99,9 @@ export default class World {
         }
       }
     });
-    const digger = new Digger(52, 25);
+    const digger = RNG.getItem([new Digger(52, 25), new Uniform(52, 25, {
+      roomDugPercentage: 0.5,
+    })]);
     for (let z = 1; z < 8; z += 1) {
       digger.create((x, y, value) => {
         if (value) {
