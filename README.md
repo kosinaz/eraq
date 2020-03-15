@@ -1,5 +1,7 @@
 # Emmanuel de Rouge and the Amulet of Quetzalcoatl
 
+![Cover](https://raw.githubusercontent.com/kosinaz/eraq/master/misc/cover.png)
+
 Emmanuel de Rouge and the Amulet of Quetzalcoatl is a browser-based retro fantasy roguelike turn-based RPG with Battle Royale elements about a brave professor who wants to find to a powerful artifact in a forgotten Aztec temple.
 
 You are Emmanuel de Rouge, the professor of archeology. Through research you learned about a forgotten Aztec temple that holds the golden feather of divine powers, the Amulet of Quetzalcoatl.  You decided to get it and finally found the island, but your rivals followed you. They will try to get the feather at all costs.
