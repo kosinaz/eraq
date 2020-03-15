@@ -12,4 +12,6 @@ Art: by Clifford Tull (combosmooth.itch.io) Licensed under the Unlicense
 Music: by Elijah Fisch (www.elijahfisch.com) Licensed under the Unlicense
 Sound: by Zapsplat (www.zapsplat.com) Licensed under Zapsplat Standard License
 
+Made for 7DRL 2020
+
 [Play now!](http://kosinaz.github.io/eraq/)
